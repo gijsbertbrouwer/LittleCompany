@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ADFA26A4-C342-40F0-B42A-3CF19E363EFE}</ProjectGuid>
+    <ProjectGuid>{5DE1E37F-65A0-43AB-9B6E-4E952BD8795F}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LittleCompany</RootNamespace>
-    <AssemblyName>LittleCompany</AssemblyName>
+    <RootNamespace>LittleCompany.BL</RootNamespace>
+    <AssemblyName>LittleCompany.BL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -57,10 +57,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -69,24 +65,23 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.html" />
-    <Content Include="testdb.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="testdb.aspx.cs">
-      <DependentUpon>testdb.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="testdb.aspx.designer.cs">
-      <DependentUpon>testdb.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="CustomerLogic.cs" />
+    <Compile Include="Cyptography.cs" />
+    <Compile Include="LoginLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LittleCompany.BO\LittleCompany.BO.csproj">
+      <Project>{d3129636-8523-4b29-9268-b85dfc904be9}</Project>
+      <Name>LittleCompany.BO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LittleCompany.DAL\LittleCompany.DAL.csproj">
+      <Project>{82f0d687-8700-405a-b958-7f2e9368453c}</Project>
+      <Name>LittleCompany.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -101,9 +96,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>49995</DevelopmentServerPort>
+          <DevelopmentServerPort>51126</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49995/</IISUrl>
+          <IISUrl>http://localhost:51126/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

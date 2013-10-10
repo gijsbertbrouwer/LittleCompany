@@ -10,5 +10,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=(localdb)\v11.0;Initial Catalog=LittleCompany;Integrated Security=True</Value>
     </Setting>
+    <Setting Name="Salt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">geheimantwoord</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

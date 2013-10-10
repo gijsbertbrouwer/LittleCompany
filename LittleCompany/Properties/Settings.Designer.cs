@@ -33,5 +33,14 @@ namespace LittleCompany.Properties {
                 return ((string)(this["DBConnection"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("geheimantwoord")]
+        public string Salt {
+            get {
+                return ((string)(this["Salt"]));
+            }
+        }
     }
 }

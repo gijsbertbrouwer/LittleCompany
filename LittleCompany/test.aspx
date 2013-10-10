@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="testdb.aspx.cs" Inherits="LittleCompany._testdb" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="test.aspx.cs" Inherits="LittleCompany._testdb" %>
 
 <!DOCTYPE html>
 
