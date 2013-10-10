@@ -26,7 +26,7 @@ namespace LittleCompany.webmethods
 
             int mainloginid = new BL.CustomerLogic().RegisterNewCustomer(customername, username, password);
             if(mainloginid < 1){
-                r.messages.Add("there was already someone else using this username or customername."); // TODO: captionize
+                r.messages.Add("there was already someone else using this username or customername.."); // TODO: captionize
                 return r;
             }
 
