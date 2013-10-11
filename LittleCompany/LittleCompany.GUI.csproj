@@ -74,6 +74,8 @@
     <Content Include="test.aspx" />
     <Content Include="Web.config" />
     <Content Include="webmethods\Security.asmx" />
+    <Content Include="webresources\style\login.css" />
+    <Content Include="webresources\style\main.css" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -114,7 +116,6 @@
   <ItemGroup>
     <Folder Include="webresources\img\" />
     <Folder Include="webresources\script\" />
-    <Folder Include="webresources\style\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
