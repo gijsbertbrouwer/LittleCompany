@@ -74,7 +74,7 @@
     <Content Include="test.aspx" />
     <Content Include="Web.config" />
     <Content Include="webmethods\Security.asmx" />
-    <Content Include="webresources\img\f2.hughesmarino-construction-management-case-study-3e-company-16.jpg" />
+    <Content Include="webresources\img\loginbg.jpg" />
     <Content Include="webresources\style\login.css" />
     <Content Include="webresources\style\main.css" />
   </ItemGroup>

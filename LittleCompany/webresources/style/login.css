@@ -1,7 +1,85 @@
 ﻿.loginscreen {
-
+    background-image: url("/webresources/img/loginbg.jpg");
+    height: 100%;
+    overflow: hidden;
 }
 
 .header {
+    height: 100px;
+    background-color: #344C74;
+    padding: 0 20px;
+}
 
+.header .logo {
+    font-family: Corbel, Arial, sans-serif, sans;
+    font-size: 30px;
+    float: left;
+    color: #fff;
+    height: 50px;
+    margin-top: 25px;
+}
+
+.header .login {
+    float: right;
+    margin-top: 35px;
+}
+
+.header .login .username_login {
+    width: 260px;
+}
+
+.header .login .password_login {
+    width: 140px;
+}
+
+input {
+    height: 30px;
+    min-width: 140px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0;
+    border: none;
+    background-color: #fff;
+    font-size: 16px;
+}
+
+input[type='submit'] {
+    padding: 0;
+    margin: 0;
+    background-color: #90AE58;
+    color: #fff;
+    border: none;
+}
+
+.loginscreen .signupform {
+    width: 430px;
+    height: 420px;
+    padding: 60px;
+    margin: 100px auto;
+    background-color: #fff;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.loginscreen .signupform input {
+    height: 60px;
+    width: 420px;
+    font-size: 30px;
+    float: right;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.loginscreen .signupform .password_signup {
+    margin-top: 20px;
+}
+
+.loginscreen .signupform .company_signup {
+    margin-top: 40px;
+}
+
+.loginscreen .signupform .submit_signup {
+    width: 210px;
+    float: right;
+    margin-top: 20px;
+    color: #fff;
 }

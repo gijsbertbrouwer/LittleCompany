@@ -13,8 +13,8 @@ namespace LittleCompany
         protected void Application_Start(object sender, EventArgs e)
         {
 
-            LittleCompany.DAL.Connection.connectionstring = Properties.Settings.Default.DBConnection;
-            LittleCompany.BL.Cyptography.salt = Properties.Settings.Default.Salt;
+            LittleCompany.DAL.Connection.connectionstring = LittleCompany.GUI.Properties.Settings.Default.DBConnection;
+            LittleCompany.BL.Cyptography.salt = LittleCompany.GUI.Properties.Settings.Default.Salt;
         }
 
         protected void Session_Start(object sender, EventArgs e)
