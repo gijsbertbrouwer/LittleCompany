@@ -20,6 +20,8 @@ namespace LittleCompany
 
             int loginid = new BL.Security().Authenticate(token);
 
+            // test errorlog
+            new BL.LogLogic().Log("TEST", "This is a test");
 
         }
     }

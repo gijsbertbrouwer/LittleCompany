@@ -20,7 +20,14 @@ namespace LittleCompany.BL
             var securitytokenstring = System.Guid.NewGuid().ToString("N").ToLower();
             r.token = securitytokenstring;
 
-            int loginid = new DAL.Security().Login(username, password, securitytokenstring);
+            var s = new DAL.Security();
+            int loginid = s.Login(username, password, securitytokenstring);
+           
+            // remove the old tokens
+            s.RemoveOldTokens();
+
+
+
             if (loginid < 1) { return null; } //  no user found with these credentials
 
             return r;

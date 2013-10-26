@@ -49,11 +49,13 @@ namespace LittleCompany.DAL
             }
             catch (Exception e)
             {
+               
+                // do some errorlogic, this went terrible wrong
+                new DAL.Logger().Log("DAL.Customer", string.Format("(Create_newCustomer) - The Customer with username: {0}, customername{1}, could not be created", mainusername, custmername));
                 return -1;
-                // todo: do some errorlogic, this went terrible wrong
             }
 
-            return r;
+         
         }
 
         private bool Check_RegistrationPossible(string custmername, string mainusername)
@@ -85,18 +87,19 @@ namespace LittleCompany.DAL
 
                             }
                         }
-                        else
-                        {
-                            // todo: error this, no result means a broken link..
-                        }
+                     
                         reader.Close();
                     }
                 }
             }
             catch (Exception)
             {
+
+                new DAL.Logger().Log("DAL.Customer", string.Format("(Check_RegistrationPossible) - The Customer with username: {0}, customername{1}, could not be checked if it is a possible new name", mainusername, custmername));
+
                 return false;
                 // todo: do some errorlogic, this went terrible wrong
+
             }
 
             return r;

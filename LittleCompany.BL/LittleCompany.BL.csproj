@@ -71,6 +71,7 @@
     <Compile Include="CustomerLogic.cs" />
     <Compile Include="Cyptography.cs" />
     <Compile Include="LoginLogic.cs" />
+    <Compile Include="LogLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

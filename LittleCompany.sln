@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleCompany.GUI", "LittleCompany\LittleCompany.GUI.csproj", "{ADFA26A4-C342-40F0-B42A-3CF19E363EFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleCompany.DAL", "LittleCompany.DAL\LittleCompany.DAL.csproj", "{82F0D687-8700-405A-B958-7F2E9368453C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D3129636-8523-4B29-9268-B85DFC904BE9} = {D3129636-8523-4B29-9268-B85DFC904BE9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LittleCompany.BL", "LittleCompany.BL\LittleCompany.BL.csproj", "{5DE1E37F-65A0-43AB-9B6E-4E952BD8795F}"
 EndProject

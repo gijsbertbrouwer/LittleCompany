@@ -68,10 +68,19 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Captions.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security.cs" />
+    <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LittleCompany.BO\LittleCompany.BO.csproj">
+      <Project>{d3129636-8523-4b29-9268-b85dfc904be9}</Project>
+      <Name>LittleCompany.BO</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
