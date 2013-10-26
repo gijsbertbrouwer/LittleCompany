@@ -33,9 +33,7 @@ namespace LittleCompany.BL
             return r;
         }
 
-
-
-        public int  Authenticate(BO.SecurityToken securitytoken)
+        public int Authenticate(BO.SecurityToken securitytoken)
         {
            // check if the user is logged in..
             int loginid = new DAL.Security().Authenticate(securitytoken.token);
@@ -44,6 +42,6 @@ namespace LittleCompany.BL
 
         }
 
-        
+ 
     }
 }

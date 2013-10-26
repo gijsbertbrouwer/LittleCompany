@@ -9,7 +9,10 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+    <table>
+        <tr><td>Users</td><td><asp:Label runat="server" ID="UI_CountOfUsers" /></td></tr>
+        <tr><td>logged in users</td><td><asp:Label runat="server" ID="UI_CountOfCurrentUsers" /></td></tr>
+    </table>
     </div>
     </form>
 </body>

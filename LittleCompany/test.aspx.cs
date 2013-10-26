@@ -13,8 +13,8 @@ namespace LittleCompany
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            string customername  = "test", username = "user1", password = "g1";
-            int mainloginid = new BL.CustomerLogic().RegisterNewCustomer(customername,username,password);
+            string customername  = "gijsbert", username = "gijsbert", password = "gijsbert";
+            int mainloginid = new BL.Customer().RegisterNewCustomer(customername,username,password);
 
             var token  =   new BL.Security().Login(username, password);
 

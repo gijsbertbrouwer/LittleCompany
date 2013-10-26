@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LittleCompany.BL
 {
-    public class CustomerLogic
+    public class Customer
     {
         public int RegisterNewCustomer(string customername, string mainuseremail, string mainuserpassword)
         {
