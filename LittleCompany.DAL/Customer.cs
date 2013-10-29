@@ -38,6 +38,7 @@ namespace LittleCompany.DAL
                         cmd.Parameters.Add(new SqlParameter(){ ParameterName = "@Customername", Value =custmername});
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@password", Value = mainuserpassword });
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@mainloginusername", Value = mainusername });
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@languagecode", Value = "NL" });
 
                         connection.Open();
                         int mainloginid = (Int32)cmd.ExecuteScalar();

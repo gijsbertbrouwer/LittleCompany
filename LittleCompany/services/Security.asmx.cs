@@ -37,8 +37,8 @@ namespace LittleCompany.webmethods
                 return r;
             }
 
-            int loginid = new BL.Security().Authenticate(token);
-            if (loginid < 1)
+           var authenticationinfo = new BL.Security().Authenticate(token);
+           if (authenticationinfo != null)
             {
                 r.messages.Add("there was a problem logging in. (authentication)"); // TODO: captionize
                 return r;

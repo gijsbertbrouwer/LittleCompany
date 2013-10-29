@@ -33,12 +33,10 @@ namespace LittleCompany.BL
             return r;
         }
 
-        public int Authenticate(BO.SecurityToken securitytoken)
+        public BO.AuthenticationInfo Authenticate(BO.SecurityToken securitytoken)
         {
            // check if the user is logged in..
-            int loginid = new DAL.Security().Authenticate(securitytoken.token);
-            if (loginid < 1) { return -1; } //  no user found with these credentials
-            return loginid;
+            return new DAL.Security().Authenticate(securitytoken.token);
 
         }
 

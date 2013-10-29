@@ -5,14 +5,13 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 
-namespace LittleCompany
+namespace LittleCompany.GUI
 {
     public class Global : System.Web.HttpApplication
     {
 
         protected void Application_Start(object sender, EventArgs e)
         {
-
             LittleCompany.DAL.Connection.connectionstring = LittleCompany.GUI.Properties.Settings.Default.DBConnection;
             LittleCompany.BL.Cyptography.salt = LittleCompany.GUI.Properties.Settings.Default.Salt;
         }

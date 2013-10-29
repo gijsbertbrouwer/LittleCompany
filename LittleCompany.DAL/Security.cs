@@ -82,7 +82,7 @@ namespace LittleCompany.DAL
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@MinimalTokenDate", Value = expirationdatetime });
 
                         connection.Open();
-                       var removedtokens = (int) cmd.ExecuteScalar();
+                        var removedtokens = (int)cmd.ExecuteScalar();
 
 
                     }
@@ -96,10 +96,10 @@ namespace LittleCompany.DAL
 
 
         }
-        public int Authenticate(string token)
+        public BO.AuthenticationInfo Authenticate(string token)
         {
             // get the loginid if existing
-            var r = 0;
+
 
             try
             {
@@ -110,10 +110,32 @@ namespace LittleCompany.DAL
                     {
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@token", Value = token });
 
+
+                        //customerid, loginid
+
                         connection.Open();
-                        int loginid = (Int32)cmd.ExecuteScalar();
-                        r = loginid;
-                        return r; // return mloginid
+                        int loginid = 0; //(Int32)cmd.ExecuteScalar();
+                        int customerid = 0;
+                      
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                loginid = (((int)reader["loginid"]) > 0) ? (int)reader["loginid"] : -1;
+                                customerid = (((int)reader["customerid"]) > 0) ? (int)reader["customerid"] : -1;
+                           
+                            }
+                        }
+
+              
+                        return new BO.AuthenticationInfo()
+                        {
+                            customerid = customerid,
+                            loginid = loginid
+                        };
+
 
                     }
                 }
@@ -123,7 +145,7 @@ namespace LittleCompany.DAL
 
                 // todo: do some errorlogic, this went terrible wrong
                 new DAL.Logger().Log("Dal.Security", string.Format("(Authenticate) - could not authenticate in with token {0} ", token));
-                return -1;
+                return null;
             }
 
 
