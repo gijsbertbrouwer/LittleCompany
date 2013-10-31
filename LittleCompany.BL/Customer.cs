@@ -13,8 +13,10 @@ namespace LittleCompany.BL
 
 
             // create hashed variables
-            mainuserpassword = BL.Cyptography.GenerateHash(mainuserpassword);
-            mainuseremail = BL.Cyptography.GenerateHash(mainuseremail);
+            
+           
+            mainuserpassword = BL.Cyptography.GenerateHash(mainuserpassword, mainuseremail);
+            mainuseremail = BL.Cyptography.GenerateHash(mainuseremail, mainuseremail);
 
             // register a new customer, returns -1 if it fails down the road
             int mainloginid = new DAL.Customer().CreateNewCustomer(customername, mainuseremail, mainuserpassword);

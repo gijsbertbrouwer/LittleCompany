@@ -13,8 +13,9 @@ namespace LittleCompany.BL
             var r = new BO.SecurityToken();
 
 
-            username = BL.Cyptography.GenerateHash(username);
-            password = BL.Cyptography.GenerateHash(password);
+            
+            password = BL.Cyptography.GenerateHash(password, username);
+            username = BL.Cyptography.GenerateHash(username, username);
 
             var rand  = new Random();
             var securitytokenstring = System.Guid.NewGuid().ToString("N").ToLower();

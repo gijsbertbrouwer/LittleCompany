@@ -13,7 +13,7 @@ namespace LittleCompany.GUI.test
         {
 
 
-            var t = "v13";
+            var t = "v14";
             string customername =t, username = t, password = t;
             int mainloginid = new BL.Customer().RegisterNewCustomer(customername, username, password);
 
