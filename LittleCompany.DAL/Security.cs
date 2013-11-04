@@ -41,7 +41,19 @@ namespace LittleCompany.DAL
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@expirationdate", Value = expirationdatetime });
 
                         connection.Open();
-                        r = (Int32)cmd.ExecuteScalar();
+                        var dbr = cmd.ExecuteScalar();
+                       if ( dbr != null)
+                       {
+                           if (!int.TryParse(dbr.ToString(), out r))
+                           {
+                               r = -1;
+                           }
+
+
+
+                       }
+
+
                     }
                 }
             }

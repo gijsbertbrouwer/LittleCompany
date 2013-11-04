@@ -71,8 +71,11 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="Login.aspx" />
     <Content Include="test\default.aspx" />
     <Content Include="Web.config" />
+    <Content Include="webforms\dashboard.aspx" />
+    <Content Include="webforms\popups\Add_Organisation.aspx" />
     <Content Include="webmethods\Security.asmx" />
     <Content Include="webresources\img\loginbg.jpg" />
     <Content Include="webresources\style\login.css" />
@@ -82,6 +85,13 @@
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -99,6 +109,20 @@
     </Compile>
     <Compile Include="test\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="webforms\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="webforms\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="webforms\popups\Add_Organisation.aspx.cs">
+      <DependentUpon>Add_Organisation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="webforms\popups\Add_Organisation.aspx.designer.cs">
+      <DependentUpon>Add_Organisation.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -3,3 +3,21 @@
     margin: 0;
     overflow: hidden;
 }
+
+
+
+
+.header {
+    height: 100px;
+    background-color: #344C74;
+    padding: 0 20px;
+}
+
+.header .logo {
+    font-family: Corbel, Arial, sans-serif, sans;
+    font-size: 30px;
+    float: left;
+    color: #fff;
+    height: 50px;
+    margin-top: 25px;
+}

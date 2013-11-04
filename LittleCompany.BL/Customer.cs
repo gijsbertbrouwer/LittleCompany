@@ -11,6 +11,7 @@ namespace LittleCompany.BL
         {
             // will check if customer or user is existing, otherwise it will create and return the mainuserloginid
 
+            mainuseremail = mainuseremail.ToLower();
 
             // create hashed variables
             
