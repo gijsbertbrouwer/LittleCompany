@@ -31,6 +31,7 @@ namespace LittleCompany.GUI.webforms
                 r.Cells.Add(new TableCell() { Text = item.name });
                 r.Cells.Add(new TableCell() { Text = item.datatypecaption });
                 t.Rows.Add(r);
+
             }
 
 
