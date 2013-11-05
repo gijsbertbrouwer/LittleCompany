@@ -99,3 +99,15 @@ SELECT top(10) Id, Name, datatypeId FROM #sp_SearchQuick_Items  order by name
 
  -- Drop temporary tables
 DROP TABLE #sp_SearchQuick_Items
+
+
+
+
+
+CREATE PROCEDURE Security_Authenticate
+	@token nvarchar(250)
+
+AS
+
+
+	SELECT loginid, customerid  from securitytokens where token  = @token and expirationDate > getdate()
