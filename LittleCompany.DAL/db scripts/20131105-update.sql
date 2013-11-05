@@ -19,6 +19,39 @@ CREATE TABLE [dbo].[DataTypes] (
 
 
 
+
+CREATE PROCEDURE [dbo].Organisation_Create
+	@name nvarchar(250),
+	@customerid int
+AS
+	insert into Organisation (Name, CustomerId)Values(@name, @customerid)
+	select @@identity
+
+
+
+
+
+
+
+
+
+
+CREATE PROCEDURE [dbo].Person_Create
+	@customerid int = 0,
+	@organisationid int = null,
+	@name nvarchar(250)
+AS
+	insert into Person (OrganisationId, CustomerId, Name)Values(
+	@organisationid,
+	@customerid,
+	@name)
+
+
+
+
+
+
+
 CREATE PROCEDURE [dbo].Search_QuickAccess_Person
 	@query nvarchar(250),
 	@customerid int

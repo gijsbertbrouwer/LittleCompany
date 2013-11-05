@@ -6,12 +6,15 @@ using System.Web;
 
 namespace LittleCompany.DAL
 {
-    public class Organisation
+    public class Person
     {
-
-        public int CreateNewOrganisation(string name, int customerid)
+    //    CREATE PROCEDURE [dbo].Person_Create
+    //@customerid int = 0,
+    //@organisationid int = null,
+    //@name nvarchar(250)
+        public int CreateNewPerson(string name, int organisationid, int customerid)
         {
- 
+
             var r = 0;
 
             try
@@ -23,19 +26,20 @@ namespace LittleCompany.DAL
                     using (SqlCommand cmd = new SqlCommand("Organisation_create") { CommandType = System.Data.CommandType.StoredProcedure, Connection = connection })
                     {
 
-                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@name", Value = name });
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@customerid", Value = customerid });
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@organisationid", Value = organisationid });
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@name", Value = name });
 
 
                         connection.Open();
-                        //int mainloginid = (Int32)cmd.ExecuteScalar();
                         string respons = cmd.ExecuteScalar().ToString();
-                        if(!int.TryParse(respons,out r)){
+                        if (!int.TryParse(respons, out r))
+                        {
                             r = -1;
                         }
 
-                     
-                        return r; // return mainloginid
+
+                        return r; 
 
                     }
                 }
@@ -44,7 +48,7 @@ namespace LittleCompany.DAL
             {
 
                 // do some errorlogic, this went terrible wrong
-                new DAL.Logger().Log("DAL.Organisation", string.Format("(CreateNewOrganisation) - The organisation with name: {0} could not be created", name));
+                new DAL.Logger().Log("DAL.Person", string.Format("(CreateNewPerson) - The person with name: {0}, organisationid: {1}, customerid {2} could not be created", name, organisationid, customerid));
                 return -1;
             }
 

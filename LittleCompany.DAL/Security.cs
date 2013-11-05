@@ -18,12 +18,10 @@ namespace LittleCompany.DAL
 
 
             int expirationTimeMin = 0;
-
             if (!int.TryParse(new DAL.Settings().GetSetting("SecurityToken_ExpirationTimeMIN").value, out expirationTimeMin))
             {
                 expirationTimeMin = 20; // default 20 minutes
             }
-
             var expirationdatetime = DateTime.Now;
             expirationdatetime = expirationdatetime.AddMinutes(expirationTimeMin);
 
@@ -111,7 +109,13 @@ namespace LittleCompany.DAL
         public BO.AuthenticationInfo Authenticate(string token)
         {
             // get the loginid if existing
-
+            int expirationTimeMin = 0;
+            if (!int.TryParse(new DAL.Settings().GetSetting("SecurityToken_ExpirationTimeMIN").value, out expirationTimeMin))
+            {
+                expirationTimeMin = 20; // default 20 minutes
+            }
+            var expirationdatetime = DateTime.Now;
+            expirationdatetime = expirationdatetime.AddMinutes(expirationTimeMin);
 
             try
             {
@@ -121,7 +125,7 @@ namespace LittleCompany.DAL
                     using (SqlCommand cmd = new SqlCommand("Security_Authenticate") { CommandType = System.Data.CommandType.StoredProcedure, Connection = connection })
                     {
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@token", Value = token });
-
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@newexpirationdate", Value = expirationdatetime });
 
                         //customerid, loginid
 

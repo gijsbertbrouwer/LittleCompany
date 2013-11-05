@@ -16,7 +16,9 @@ namespace LittleCompany.GUI.webforms.popups
 
         protected void UI_btn_add_Click(object sender, EventArgs e)
         {
-            int newOrgId = new BL.Organisation().CreateOrganisation(UI_Name.Text);
+
+            var auth = new BL.Security().Authenticate((BO.SecurityToken)Session["token"]);
+            int newOrgId = new BL.Organisation().CreateOrganisation(UI_Name.Text, auth.customerid);
             if (newOrgId < 0)
             {
 
