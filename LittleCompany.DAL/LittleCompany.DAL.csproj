@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="db scripts\20131105 - Add sp create organisation.sql" />
+    <Content Include="db scripts\20131105-Add organisation customerid.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +76,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Organisation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="User.cs" />
