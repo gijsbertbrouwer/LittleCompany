@@ -5,14 +5,15 @@ using System.Web;
 
 namespace LittleCompany.BL
 {
-    public class Organisation
+    public class Person
     {
-        public int CreateOrganisation(string name, int customerid)
+        public int CreateOrganisation(string name, int organisationid, int customerid)
         {
             // create organisation and return the id of it
-            return new DAL.Organisation().CreateNewOrganisation(name, customerid);
+            return new DAL.Person().CreateNewPerson(name, organisationid, customerid);
 
         }
+
 
 
     }
