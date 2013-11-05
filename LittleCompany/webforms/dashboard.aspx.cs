@@ -15,26 +15,9 @@ namespace LittleCompany.GUI.webforms
 
             var user = new BL.User().GetUser(auth);
 
-
-            TableFiller_Favorites(UI_Favorites, user);
+            var securitytoken = (BO.SecurityToken)Session["token"];
+            SecurityToken.Value = securitytoken.token;  //set token to page
         }
 
-        protected void TableFiller_Favorites(Table t, BO.User user)
-        {
-            //UI_Favorites
-
-            foreach (var item in user.favorites)
-            {
-                var r = new TableRow();
-                r.Attributes.Add("itemid", item.id.ToString());
-                r.Cells.Add(new TableCell() { Text = item.id.ToString() });
-                r.Cells.Add(new TableCell() { Text = item.name });
-                r.Cells.Add(new TableCell() { Text = item.datatypecaption });
-                t.Rows.Add(r);
-
-            }
-
-
-        }
     }
 }

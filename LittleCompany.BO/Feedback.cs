@@ -9,8 +9,11 @@ namespace LittleCompany.BO
     {
         public object data;
         public bool ispositive;
-        public new List<string> messages ;
+        public new List<string> messages;
 
-
+        public Feedback()
+        {
+            messages = new List<string>();
+        }
     }
 }

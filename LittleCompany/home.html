@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ondor | voor ondernemers</title>
+
+    <link href="webresources/style/main.css" rel="stylesheet" />
+
+    <script src="webresources/script/jquery-2.0.3.min.js"></script>
+    <script src="webresources/script/ox.js"></script>
+    <script src="webresources/script/communication/data.js"></script>
+    <script src="webresources/script/security/security.js"></script>
+    <script src="webresources/script/ui/ui.js"></script>
+
+    <script type="text/javascript">
+
+        //SETUP
+        $(document).ready(function () {
+            new OxFramework();
+            ox.Navigate("dashboard");
+        });
+
+
+    </script>
+
+</head>
+<body>
+    <div id="header">
+        <div id="logo">
+            <canvas id="ondorlogocanvas" width="210" height="60"></canvas>
+        </div>
+
+    </div>
+    <div id="navigation"></div>
+    <div class="oxsection dashboard">
+        dashboard!
+    </div>
+
+</body>
+</html>

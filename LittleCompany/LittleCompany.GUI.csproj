@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="home.html" />
     <Content Include="index.html" />
     <Content Include="Login.aspx" />
     <Content Include="test\default.aspx" />
@@ -77,7 +78,15 @@
     <Content Include="webforms\dashboard.aspx" />
     <Content Include="webforms\popups\Add_Organisation.aspx" />
     <Content Include="webmethods\Security.asmx" />
+    <Content Include="webmethods\User.asmx" />
     <Content Include="webresources\img\loginbg.jpg" />
+    <Content Include="webresources\script\communication\data.js" />
+    <Content Include="webresources\script\communication\olddata.js" />
+    <Content Include="webresources\script\jquery-2.0.3.min.js" />
+    <Content Include="webresources\script\ox.js" />
+    <Content Include="webresources\script\security\security.js" />
+    <Content Include="webresources\script\ui\screens\dashboard.js" />
+    <Content Include="webresources\script\ui\ui.js" />
     <Content Include="webresources\style\login.css" />
     <Content Include="webresources\style\main.css" />
     <Content Include="services\Security.asmx" />
@@ -124,6 +133,10 @@
     <Compile Include="webforms\popups\Add_Organisation.aspx.designer.cs">
       <DependentUpon>Add_Organisation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="webmethods\User.asmx.cs">
+      <DependentUpon>User.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LittleCompany.BL\LittleCompany.BL.csproj">
@@ -139,9 +152,7 @@
       <Name>LittleCompany.DAL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="webresources\script\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
