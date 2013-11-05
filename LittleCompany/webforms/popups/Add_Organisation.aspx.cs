@@ -16,6 +16,12 @@ namespace LittleCompany.GUI.webforms.popups
 
         protected void UI_btn_add_Click(object sender, EventArgs e)
         {
+            int newOrgId = new BL.Organisation().CreateOrganisation(UI_Name.Text);
+            if (newOrgId < 0)
+            {
+
+                UI_Respons.Text = "Er is een fout opgetreden. De organisatie kon niet gemaakt worden.";
+            }
 
         }
     }
