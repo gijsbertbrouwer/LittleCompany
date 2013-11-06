@@ -5,7 +5,16 @@
     
     <link href="webresources/style/login.css" rel="stylesheet" />
     <link href="webresources/style/main.css" rel="stylesheet" />
+    <script src="webresources/script/jquery-2.0.3.min.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#login-form').submit(function () {
+                //TODO: submit to webmethod and redirect to home.html with securityToken in querystring
+                return false;
+            })
+        });
+    </script>
 </head>
 <body>
     
@@ -13,9 +22,11 @@
         <div class="header">
             <div class="logo">kleinbedrijf.nl</div>
             <div class="login">
-                <input class="username_login" type="text" placeholder="e-mailadres" />
-                <input class="password_login" type="password" placeholder="wachtwoord" />
-                <input class="submit_login" type="submit" value="login" />
+                <form id="login-form">
+                    <input class="username_login" type="text" placeholder="e-mailadres" />
+                    <input class="password_login" type="password" placeholder="wachtwoord" />
+                    <input class="submit_login" type="submit" value="login" />
+                </form>
             </div>
         </div>
 
