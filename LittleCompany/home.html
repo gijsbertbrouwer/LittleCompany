@@ -15,6 +15,7 @@
     <script src="webresources/script/ui/screens/dashboard.js"></script>
 
     <script src="webresources/script/ui/popups/Addorganisation.js"></script>
+    <script src="webresources/script/ui/popups/Addperson.js"></script>
     
     <script type="text/javascript">
         $(document).ready(function () {
@@ -43,7 +44,23 @@
                     </div>
                     <div class="buttonrow">
                         <a href="#" class="cancel">annuleren</a>
-                        <input type="submit" class="submit" value="Aanmaken" />
+                        <input type="submit" class="submit" value="Toevoegen" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id='popup_addperson' class="popup" style="display: none;">
+            <div class="popup-inner">
+                <div class="title">Add Person</div>
+                <form id="form_addperson">
+                    <div class="content">
+                        <label>person name:</label>
+                        <input type="text" class="name" />
+                    </div>
+                    <div class="buttonrow">
+                        <a href="#" class="cancel">annuleren</a>
+                        <input type="submit" class="submit" value="Toevoegen" />
                     </div>
                 </form>
             </div>

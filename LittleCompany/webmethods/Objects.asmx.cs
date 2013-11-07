@@ -27,7 +27,27 @@ namespace LittleCompany.GUI.webmethods
             int newOrgId = new BL.Organisation().CreateOrganisation(organisationName, auth.customerid);
             if (newOrgId < 0)
             {
-               fb.messages.Add("Er is een fout opgetreden. De organisatie kon niet gemaakt worden.");
+               fb.messages.Add("Er is een fout opgetreden. De organisatie kon niet worden toegevoegd.");
+            }
+            else
+            {
+                fb.ispositive = true;
+            }
+
+            return fb;
+        }
+
+        [WebMethod]
+        public BO.Feedback AddPerson(BO.SecurityToken securityToken, string personName)
+        {
+            var fb = new BO.Feedback();
+
+            var auth = new BL.Security().Authenticate(securityToken);
+
+            int newOrgId = 1;   // = new BL.Organisation().CreatePerson(personName, auto.customerid);
+            if (newOrgId < 0)
+            {
+                fb.messages.Add("Er is een fout opgetreden. De contactpersoon kon niet worden toegevoegd.");
             }
             else
             {

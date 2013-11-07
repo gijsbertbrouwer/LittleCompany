@@ -86,6 +86,7 @@
     <Content Include="webresources\script\jquery-2.0.3.min.js" />
     <Content Include="webresources\script\ox.js" />
     <Content Include="webresources\script\ui\popups\AddOrganisation.js" />
+    <Content Include="webresources\script\ui\popups\AddPerson.js" />
     <Content Include="webresources\script\user\user.js" />
     <Content Include="webresources\script\ui\screens\dashboard.js" />
     <Content Include="webresources\script\ui\ui.js" />
