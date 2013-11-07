@@ -17,30 +17,42 @@
 
     var OnDataAvailable = function () {
         RenderFavorites();
+        skin.append("<div class='addcompanybutton' style='background-color: #ccc; border-radius: 10px; height: 30px; width: 120px;'>add company</div>");
+
         AddEventListeners();
     };
 
     var AddEventListeners = function () {
-        skin.find('.star').hover(
-            function () {
-                var cnv = $(this).find('.starcanvas')[0];
-                if (cnv.getContext) {
-                    var ctx = cnv.getContext('2d');
-                    DrawStarIconHover(ctx);
-                } else {
-                    //TODO: canvas-unsupported code here - render png's
-                }
-            },
-            function () {
-                var cnv = $(this).find('.starcanvas')[0];
-                if (cnv.getContext) {
-                    var ctx = cnv.getContext('2d');
-                    DrawStarIcon(ctx);
-                } else {
-                    //TODO: canvas-unsupported code here - render png's
-                }
-            }
-        );
+
+
+        skin.find('.star').unbind('hover').hover(OnStarOver, OnStarOut);
+        
+        skin.find('.addcompanybutton').unbind('click').click(OnAddCompanyButtonClick)
+    };
+
+    var OnAddCompanyButtonClick = function () {
+        //via window custom event?
+        new Addorganisation();
+    };
+
+    var OnStarOver = function () {
+        var cnv = $(this).find('.starcanvas')[0];
+        if (cnv.getContext) {
+            var ctx = cnv.getContext('2d');
+            DrawStarIconHover(ctx);
+        } else {
+            //TODO: canvas-unsupported code here - render png's
+        }
+    };
+
+    var OnStarOut = function () {
+        var cnv = $(this).find('.starcanvas')[0];
+        if (cnv.getContext) {
+            var ctx = cnv.getContext('2d');
+            DrawStarIcon(ctx);
+        } else {
+            //TODO: canvas-unsupported code here - render png's
+        }
     };
 
     var RenderFavorites = function () {

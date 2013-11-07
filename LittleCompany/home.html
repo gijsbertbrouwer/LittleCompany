@@ -13,7 +13,8 @@
     <script src="webresources/script/ui/ui.js"></script>
 
     <script src="webresources/script/ui/screens/dashboard.js"></script>
-    
+
+    <script src="webresources/script/ui/popups/Addorganisation.js"></script>
     
     <script type="text/javascript">
         $(document).ready(function () {
@@ -31,6 +32,24 @@
         </div>
 
     </div>
+    <div id="popupwrapper">
+        <div id='popup_addorganisation' class="popup" style="display: none;">
+            <div class="popup-inner">
+                <div class="title">Add Organisation</div>
+                <form id="form_addorganisation">
+                    <div class="content">
+                        <label>organisation name:</label>
+                        <input type="text" class="name" />
+                    </div>
+                    <div class="buttonrow">
+                        <a href="#" class="cancel">annuleren</a>
+                        <input type="submit" class="submit" value="Aanmaken" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="blanket" style="display: none;"></div>
     <div id="navigation"></div>
     <div class="oxsection dashboard">
 

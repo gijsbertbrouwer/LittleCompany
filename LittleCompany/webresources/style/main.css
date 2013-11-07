@@ -38,3 +38,83 @@
     .oxsection {
         padding-left: 120px;
     }
+
+    .hide {
+        display: none !important;
+    }
+
+    /*INPUT*/
+    input[type='text'] {
+        border: 1px solid #afafaf;
+    }
+
+    input[type='text']:focus {
+        border: 1px solid #0D7FAC;
+        outline: none;
+    }
+
+
+    /*POPUP*/
+    #popupwrapper {
+        width: 100%;
+        position: absolute;
+        z-index: 10;
+    }
+
+    .popup {
+        
+        background-color: #fff;
+        border: 1px solid #ccc;
+        
+        width: 400px;
+        margin: 0 auto;
+
+        -moz-box-shadow: 0 0 10px #888;
+        -webkit-box-shadow: 0 0 10px#888;
+        box-shadow: 0 0 10px #888;
+
+    }
+
+    .popup .popup-inner {
+        padding: 20px 30px;
+        min-height: 100px;
+        
+    }
+
+    .popup .title {
+        padding: 10px 0 20px 0;
+        color: #0D7FAC;
+    }
+
+    .popup label {
+        font-size: 0.8em;
+        color: #666;
+    }
+
+    .popup .buttonrow {
+        padding-top: 30px;
+    }
+
+    .popup .buttonrow input[type='submit'] {
+        float: right;
+        text-transform: capitalize;
+    }
+
+    .popup .buttonrow .cancel {
+        color: #666;
+        font-size: 0.8em;
+        text-transform: capitalize;
+    }
+
+
+
+
+    .blanket {
+        position: absolute;
+        z-index: 9;
+        white-space: nowrap;
+        width: 100%;
+        height: 100%;
+        background-color: #afafaf;
+        opacity: 0.3;
+    }
