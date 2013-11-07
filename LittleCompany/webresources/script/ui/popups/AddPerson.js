@@ -29,7 +29,7 @@
         ox.data.CommunicateWithServer({
             methodUrl: 'Objects.asmx/AddPerson',
             data: {
-                'personName': skin.find('.name').val()
+                'personName': skin.find('.name').val() 
             },
             success: function (d) {
 

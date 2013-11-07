@@ -27,7 +27,7 @@
         if (!ValidateForm()) { return; }
 
         ox.data.CommunicateWithServer({
-            methodUrl: 'Objects.asmx/AddOrganisation',
+            methodUrl: 'Objects.asmx/AddOrganisation', 
             data: {
                 'organisationName': skin.find('.name').val()
             },

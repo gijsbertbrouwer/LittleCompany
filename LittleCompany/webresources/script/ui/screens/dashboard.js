@@ -32,7 +32,7 @@
         skin.find('.addpersonbutton').unbind('click').click(OnAddPersonButtonClick);
     };
 
-    var OnAddOrganisationButtonClick = function () {
+    var OnAddOrganisationButtonClick = function () { 
         //via window custom event?
         new Addorganisation();
     };

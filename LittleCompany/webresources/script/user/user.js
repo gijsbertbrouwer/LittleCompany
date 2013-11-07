@@ -29,7 +29,7 @@ var User = function () {
         return data.favorites;
     };
 
-
+     
     var GetUserData = function () {
         ox.data.CommunicateWithServer({
             methodUrl: 'User.asmx/GetUserData',
