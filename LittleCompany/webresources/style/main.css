@@ -1,31 +1,40 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700);
+﻿
+    @import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700);
 
-body {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    background-color: #ebecec;
-    font-family: 'Open Sans', Arial, sans-serif, sans;
-}
+    * {
+        cursor: default;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        background-color: #ebecec;
+        font-family: 'Open Sans', Arial, sans-serif, sans;
+    }
 
 
-#header, .header {
-    height: 60px;
-    background-color: #0D7FAC;
-    padding: 0 20px;
-}
+    #header, .header {
+        height: 60px;
+        background-color: #0D7FAC;
+        padding: 0 20px;
+    }
 
-.header .logo, #header #logo {
-    font-family: Corbel, Arial, sans-serif, sans;
-    font-size: 30px;
-    float: left;
-    color: #fff;
-    height: 50px;
-    margin-top: 10px;
-}
+    .header .logo, #header #logo {
+        font-family: Corbel, Arial, sans-serif, sans;
+        font-size: 30px;
+        float: left;
+        color: #fff;
+        height: 50px;
+        margin-top: 10px;
+    }
 
-#navigation {
-    width: 120px;
-    float: left;
-    background-color: #dadada;
-}
+    #navigation {
+        width: 120px;
+        float: left;
+        background-color: #dadada;
+    }
+
+    .oxsection {
+        padding-left: 120px;
+    }

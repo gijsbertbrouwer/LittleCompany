@@ -6,11 +6,40 @@
     <link href="webresources/style/login.css" rel="stylesheet" />
     <link href="webresources/style/main.css" rel="stylesheet" />
     <script src="webresources/script/jquery-2.0.3.min.js"></script>
+    <script src="webresources/script/communication/data.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             $('#login-form').submit(function () {
                 //TODO: submit to webmethod and redirect to home.html with securityToken in querystring
+
+                var username = $(this).find('.username_login').val();
+                var password = $(this).find('.password_login').val();
+
+                var d = new Data();
+
+                d.CommunicateWithServer({
+                    secure: false,
+                    methodUrl: 'User.asmx/Login',
+                    data: {
+                        'username': username,
+                        'password': password
+                    },
+                    success: function (d) {
+                    
+                        if (d.ispositive && d.data && d.data.token) {
+                            //handle success
+                            window.location = "home.html?securityToken=" + d.data.token;
+
+                        } else {
+                            alert('login no good');
+                        }
+                    },
+                    error: function (d) {
+                        alert('error: ' + d);
+                    }
+                });
+
                 return false;
             })
         });

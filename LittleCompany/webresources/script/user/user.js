@@ -21,14 +21,16 @@ var User = function () {
         }
     };
 
+    me.DataAvailable = function () {
+        return (typeof(data) == 'object');
+    };
 
-    me.GetFavorites = function () {
-        if (!data) { GetUserData(me.GetFavorites); return; }
+    me.GetFavorites = function (success) {
         return data.favorites;
-    }
+    };
 
 
-    var GetUserData = function (success) {
+    var GetUserData = function () {
         ox.data.CommunicateWithServer({
             methodUrl: 'User.asmx/GetUserData',
             success: function (d) {
@@ -36,10 +38,6 @@ var User = function () {
                 if (d.ispositive) {
                    
                     data = d.data;
-
-                    if(typeof(success) == 'function') {
-                        success();
-                    }
                 } else {
                     //TODO: handle errors
                 }

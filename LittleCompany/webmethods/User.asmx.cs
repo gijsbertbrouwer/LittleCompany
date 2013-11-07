@@ -24,6 +24,26 @@ namespace LittleCompany.GUI.webmethods
         }
 
         [WebMethod]
+        public BO.Feedback Login(string password, string username)
+        {
+            var fb = new BO.Feedback();
+
+            var token = new BL.Security().Login(username, password);
+
+            if (token != null)
+            {
+                fb.ispositive = true;
+                fb.data = token;
+            }
+            else
+            {
+                fb.messages.Add("Ongeldige credentials, probeer het opnieuw.");
+            }
+
+            return fb;
+        }
+
+        [WebMethod]
         public BO.Feedback GetUserData(BO.SecurityToken securityToken)
         {
             var fb = new BO.Feedback();
