@@ -15,6 +15,7 @@ namespace LittleCompany.GUI.webforms
 
             var user = new BL.User().GetUser(auth);
 
+            
             var securitytoken = (BO.SecurityToken)Session["token"];
             SecurityToken.Value = securitytoken.token;  //set token to page
         }

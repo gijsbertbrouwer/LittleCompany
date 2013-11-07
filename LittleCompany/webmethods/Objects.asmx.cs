@@ -56,5 +56,15 @@ namespace LittleCompany.GUI.webmethods
 
             return fb;
         }
+
+
+        public BO.Feedback QuickSearch(BO.SecurityToken securityToken, BO.Search.Quick quicksearch)
+        {
+            var fb = new BO.Feedback();
+            fb.data = quicksearch;
+            fb.ispositive = true;
+            return fb;
+
+        }
     }
 }
