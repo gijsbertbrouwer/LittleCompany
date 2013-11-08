@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <script src="../webresources/script/jquery-2.0.3.min.js"></script>
+
+    <script>
+
+        var selectedFiles;
+ 
+        $(document).ready(function () {
+            var box;
+            box = document.getElementById("box");
+            box.addEventListener("dragenter", OnDragEnter, false);
+            box.addEventListener("dragover", OnDragOver, false);
+            box.addEventListener("drop", OnDrop, false);
+
+
+
+            $("#upload").click(function () {
+                var data = new FormData();
+                for (var i = 0; i < selectedFiles.length; i++) {
+                    data.append(selectedFiles[i].name, selectedFiles[i]);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "functions.ashx",
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error: function () {
+                        alert("There was error uploading files!");
+                    }
+                });
+            });
+
+
+        });
+
+
+
+        function OnDragEnter(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $("#box").css("background-color", "");
+        }
+ 
+        function OnDragOver(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            $("#box").css("background-color", "#a90808");
+        }
+ 
+        function OnDrop(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            selectedFiles = e.dataTransfer.files;
+            $("#box").text(selectedFiles.length + " file(s) selected for uploading!");
+        }
+
+
+
+
+    </script>
+
+
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <center>
+            <div id="box" style="border:solid 1px #cccccc;">Drag & Drop files from your machine on this box.</div>
+            <br />
+            <input id="upload" type="button" value="Upload Selected Files" />
+        </center>
+    </form>
+</body>
+</html>
+
+
