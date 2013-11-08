@@ -71,6 +71,7 @@
     <Compile Include="Caption.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Cyptography.cs" />
+    <Compile Include="Files.cs" />
     <Compile Include="LogLogic.cs" />
     <Compile Include="Organisation.cs" />
     <Compile Include="Person.cs" />

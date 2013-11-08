@@ -7,8 +7,9 @@
 
     <script>
 
-        var selectedFiles;
- 
+        var selectedFiles = 0;
+        var datatoupload = new FormData();
+
         $(document).ready(function () {
             var box;
             box = document.getElementById("box");
@@ -19,21 +20,20 @@
 
 
             $("#upload").click(function () {
-                var data = new FormData();
-                for (var i = 0; i < selectedFiles.length; i++) {
-                    data.append(selectedFiles[i].name, selectedFiles[i]);
-                }
+               // var data = new FormData();
+               
                 $.ajax({
                     type: "POST",
-                    url: "functions.ashx",
+                    url: "functions.ashx?token=828681dc27f5445baa2e787d6920fc7d&action=uploadfiles",
                     contentType: false,
                     processData: false,
-                    data: data,
+                    data: datatoupload,
                     success: function (result) {
-                        alert(result);
+                        alert(result.messages.join("\n"));
                     },
                     error: function () {
                         alert("There was error uploading files!");
+                        alert(result.messages.join("\n"));
                     }
                 });
             });
@@ -59,8 +59,17 @@
         function OnDrop(e) {
             e.stopPropagation();
             e.preventDefault();
-            selectedFiles = e.dataTransfer.files;
-            $("#box").text(selectedFiles.length + " file(s) selected for uploading!");
+
+            
+             var l = e.dataTransfer.files.length;
+             for (var i = 0; i < l; i++) {
+                 var sf = e.dataTransfer.files[i]
+                 datatoupload.append(sf.name, sf);
+                 selectedFiles++;
+             }
+
+
+            $("#box").text(selectedFiles + " file(s) selected for uploading!");
         }
 
 

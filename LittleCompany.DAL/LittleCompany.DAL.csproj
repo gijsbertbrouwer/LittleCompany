@@ -74,6 +74,7 @@
     <Compile Include="Captions.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="Files.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Organisation.cs" />
     <Compile Include="Person.cs" />
