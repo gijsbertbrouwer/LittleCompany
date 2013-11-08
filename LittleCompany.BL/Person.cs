@@ -7,7 +7,7 @@ namespace LittleCompany.BL
 {
     public class Person
     {
-        public int CreateOrganisation(string name, int organisationid, int customerid)
+        public int CreatePerson(string name, int organisationid, int customerid)
         {
             // create organisation and return the id of it
             return new DAL.Person().CreateNewPerson(name, organisationid, customerid);

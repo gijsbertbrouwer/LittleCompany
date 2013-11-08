@@ -23,7 +23,7 @@ namespace LittleCompany.DAL
 
                 using (SqlConnection connection = new SqlConnection(DAL.Connection.connectionstring))
                 {
-                    using (SqlCommand cmd = new SqlCommand("Organisation_create") { CommandType = System.Data.CommandType.StoredProcedure, Connection = connection })
+                    using (SqlCommand cmd = new SqlCommand("Person_Create") { CommandType = System.Data.CommandType.StoredProcedure, Connection = connection })
                     {
 
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@customerid", Value = customerid });

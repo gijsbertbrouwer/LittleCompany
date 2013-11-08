@@ -13,7 +13,12 @@ namespace LittleCompany.GUI.test
         {
 
 
-            var c = new BL.Caption().GetCaption("@General_DataTypes_File_", "NL", BO.CaptionType.Plural);
+            //var c = new BL.Caption().GetCaption("@General_DataTypes_File_", "NL", BO.CaptionType.Plural);
+
+
+
+        var pid =    new BL.Person().CreatePerson("aaa gijsbert test v1", 1002, 6002);
+
 
 
 
