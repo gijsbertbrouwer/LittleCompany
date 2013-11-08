@@ -4,17 +4,19 @@
     var openscreenclass;
 
     me.Init = function () {
+        ox.Navigate = ox.ui.Navigate;
+
         //handle all oxsections
         $('.oxsection').hide();
 
         //header, navigation
         InitScreen();
 
-        //console
-        new Console();
-
         //main search
         new Mainsearch();
+
+        //console
+        Console.Init();
     }
 
     me.Navigate = function (to) {

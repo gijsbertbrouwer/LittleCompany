@@ -96,6 +96,7 @@
     <Content Include="webresources\script\ui\screens\dashboard.js" />
     <Content Include="webresources\script\ui\ui.js" />
     <Content Include="webresources\script\util\CanvasRenderer.js" />
+    <Content Include="webresources\script\util\constants.js" />
     <Content Include="webresources\script\util\stringutil.js" />
     <Content Include="webresources\style\dashboard.css" />
     <Content Include="webresources\style\login.css" />

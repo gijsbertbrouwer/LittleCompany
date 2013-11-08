@@ -18,13 +18,19 @@
 
     var OnSearchQueryKeyUp = function () {
         var q = $(this).val();
-        
-        if (q && q.length > 1) {    
+
+        //add open console function from search bar
+        if (q == Console.openstring) {
+            Console.Open();
+            $(this).val("");
+            return;
+        }
+
+        if (q && $.trim(q).length > 1) {    
             DoQuickSearch(q);
         } else {
             quicksearchDOM.slideUp(100);
         }
-
         
         
     };

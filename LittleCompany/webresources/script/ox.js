@@ -23,9 +23,5 @@ var OxFramework = function () {
     ox.user.Init();
     ox.ui.Init();
 
-    //shortcuts
-    ox.Navigate = ox.ui.Navigate;
-    ox.Caption = ox.data.GetCaption;
-
     return ox;
 }
