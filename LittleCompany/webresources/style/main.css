@@ -301,3 +301,39 @@
     #console .commandline .commandlineinput:focus {
         border: 0;
     }
+
+
+    /*====BUTTONS MAIN MENU====*/
+
+    #navigation .section .button {
+        width: 88px;
+        height: 88px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        font-size: 0.8em;
+        margin: 15px;
+        text-align: center;
+        color: #666;
+        overflow: hidden;
+    }
+
+    #navigation .section .button:hover {
+        border-color: #999;
+        background-color: #f2f2f2;
+    }
+
+    #navigation .section .button .icon {
+        height: 60px;
+        text-align: center;
+        font-size: 3em;
+        font-weight: 600;
+    }
+
+    #navigation .section .button .icon.texticon {
+        padding-top: 5px;
+        margin-bottom: -15px;
+    }
+
+    #navigation .section .button .caption {
+        
+    }

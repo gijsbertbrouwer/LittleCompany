@@ -26,19 +26,27 @@
 
     var OnDataAvailable = function () {
         RenderFavorites();
-        skin.append("<div class='addorganisationbutton' style='background-color: #ccc; border-radius: 10px; height: 30px; width: 150px; text-align: center;'>add organisation</div>");
-        skin.append("<div>&nbsp;</div>");
-        skin.append("<div class='addpersonbutton' style='background-color: #ccc; border-radius: 10px; height: 30px; width: 150px; text-align: center;'>add person</div>");
+
+        Mainmenu.AddButton({
+            caption: "Add organisation",
+            action: OnAddOrganisationButtonClick,
+            icon: "O",
+            section: ""
+        });
+        
+        Mainmenu.AddButton({
+            caption: "Add person",
+            action: OnAddPersonButtonClick,
+            icon: "P",
+            section: ""
+        });
+
 
         AddEventListeners();
     };
 
     var AddEventListeners = function () {
-
         skin.find('.star').unbind('hover').hover(OnStarOver, OnStarOut);
-        
-        skin.find('.addorganisationbutton').unbind('click').click(OnAddOrganisationButtonClick);
-        skin.find('.addpersonbutton').unbind('click').click(OnAddPersonButtonClick);
     };
 
     var OnAddOrganisationButtonClick = function () { 
