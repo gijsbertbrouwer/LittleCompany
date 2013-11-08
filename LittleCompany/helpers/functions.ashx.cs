@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace LittleCompany.GUI.helpers
 {
@@ -13,23 +14,21 @@ namespace LittleCompany.GUI.helpers
 
         public void ProcessRequest(HttpContext context)
         {
-
-
-            context.Response.ContentType = "application/json";
             var r = new BO.Feedback()
             {
-                ispositive = false,
                 messages = new List<string>()
             };
 
+            context.Response.ContentType = "application/json";
+            var json = new JavaScriptSerializer();
 
-
+   
             string token = "";
             if (String.IsNullOrEmpty(context.Request.QueryString["token"]))
             {
                 r.ispositive = false;
                 r.messages.Add("U mist de token in de aanvraag");
-                context.Response.Write( r);
+                context.Response.Write(json.Serialize(r)); 
                 return;
             }
 
@@ -41,7 +40,7 @@ namespace LittleCompany.GUI.helpers
             {
                 r.ispositive = false;
                 r.messages.Add("U moet opnieuw inloggen");
-                context.Response.Write(r);
+                context.Response.Write(json.Serialize(r)); 
                 return;
             }
 
@@ -54,27 +53,31 @@ namespace LittleCompany.GUI.helpers
             {
 
                 r.messages.Add("U mist de action in de querystring");
-                context.Response.Write(r);
+                context.Response.Write(json.Serialize(r)); 
                 return;
             }
 
 
             string action = context.Request.QueryString["action"].ToString().ToLower();
 
+
+
             switch (action)
             {
-                case "UploadFiles":
-  
-                    context.Response.Write(UploadFiles(context, auth)); return;
+                case "uploadfiles":
+
+                    r = UploadFiles(context, auth);
                     break;
                 default:
                     r.messages.Add("U mist een geldige action in de querystring");
-                    context.Response.Write(r); return;
+                    
                     break;
             }
 
+           
+            context.Response.Write(json.Serialize(r)); 
 
-
+            return;
 
         }
 
@@ -90,16 +93,7 @@ namespace LittleCompany.GUI.helpers
                 messages = new List<string>()
             };
 
-
-            // todo: 
-            // create guid for identification of the file
-            // make sure the guid was not used before (loop)
-            // save file to disk (in folder of customer_id/fileuploads) filename  is the guid
-            // save file to db (with disk path, with guid)
-            
-           
-
-
+            int succesUploadedFiles = 0;
 
             if (context.Request.Files.Count > 0)
             {
@@ -107,21 +101,23 @@ namespace LittleCompany.GUI.helpers
                 foreach (string key in files)
                 {
                     HttpPostedFile file = files[key];
-                    string fileName = file.FileName;
-                    fileName = context.Server.MapPath("~/uploads/" + fileName);
-                    file.SaveAs(fileName);
+                    string fileName =  System.IO.Path.GetFileName(file.FileName);
+
+                    var fupload = new BL.Files().CreateNewFileb(file.InputStream, fileName, 0, auth.customerid, 0, DateTime.Now);
+                    if (fupload != null)
+                    {
+                        succesUploadedFiles++;
+                    }
+
+
                 }
             }
 
 
-            return new BO.Feedback()
-            {
-                data = "",
-                ispositive = true,
-                messages = new List<string>()
-            };
+            r.ispositive = true;
+            r.messages.Add(string.Format("{0} files succesfully uploaded (TODO CAPTION)", succesUploadedFiles));
 
-
+            return r;
 
         }
 
