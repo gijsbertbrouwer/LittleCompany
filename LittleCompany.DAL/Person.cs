@@ -27,7 +27,12 @@ namespace LittleCompany.DAL
                     {
 
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@customerid", Value = customerid });
-                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@organisationid", Value = organisationid });
+
+                        if (organisationid > 0)
+                        {
+                            cmd.Parameters.Add(new SqlParameter() { ParameterName = "@organisationid", Value = organisationid });
+                        }
+
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@name", Value = name });
 
 
