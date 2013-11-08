@@ -16,6 +16,8 @@
 
     <script src="webresources/script/ui/popups/Addorganisation.js"></script>
     <script src="webresources/script/ui/popups/Addperson.js"></script>
+
+    <script src="webresources/script/ui/controls/mainsearch.js"></script>
     
     <script type="text/javascript">
         $(document).ready(function () {
@@ -32,10 +34,15 @@
             <canvas id="ondorlogocanvas" width="210" height="60"></canvas>
         </div>
         <div id="mainsearchbar">
-            <form id="mainsearch">
+            <form id="mainsearchform">
                 <input type="text" class="searchquery" />
                 <input type="submit" class="submit" value="zoeken" />
             </form>
+            <div class="quicksearchresults">
+                <div class="noresults" style="display: none;">
+                    No results found. Sorry man.
+                </div>
+            </div>
         </div>
 
     </div>

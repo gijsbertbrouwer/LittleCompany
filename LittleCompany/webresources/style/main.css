@@ -118,3 +118,45 @@
         background-color: #afafaf;
         opacity: 0.3;
     }
+
+
+    /*search*/
+    #mainsearchbar {
+        position: absolute;
+        z-index: 11;
+        margin-left: 210px;
+    }
+
+    #mainsearchform {
+        padding-top: 15px;
+    }
+    
+    #mainsearchform .searchquery {
+        width: 340px;
+        height: 31px;
+        font-size: 1em;
+        padding: 0 10px;
+        border: 1px solid transparent;
+    }
+
+    #mainsearchform .searchquery:focus {
+        border: 1px solid #0D7FAC;
+    }
+
+    #mainsearchform .submit {
+        height: 32px;
+    }
+
+    #mainsearchbar .quicksearchresults {
+        background-color: #dadada;
+        width: 440px;
+        min-height: 120px;
+        padding-top: 45px;
+        margin-top: -38px;
+        margin-left: -5px;
+        display: none;
+    }
+
+    #mainsearchbar .quicksearchresults .noresults {
+        font-size: 0.8em;
+    }
