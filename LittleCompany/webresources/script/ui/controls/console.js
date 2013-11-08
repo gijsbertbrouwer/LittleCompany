@@ -22,10 +22,6 @@
         stringutil = new Stringutil();
 
         AddClosedEventListeners();
-
-        for (var i = 0; i < 100; i++) {
-            me.Log("TEST LOG" + i);
-        }
     };
 
     me.Log = function (message) {
@@ -60,15 +56,24 @@
             
         }
 
+        logskin += "<div class='log'>type 'exit' to exit console</div>";
         
         logsDOM.append(logskin);
         logsDOM.animate({ scrollTop: logsDOM[0].scrollHeight }, 0);
     };
 
     var HandleCommand = function (c) {
+        if (typeof (c) != 'string') { return; }
+
+        //TODO: make command
+        if (c == "exit") {
+            me.Close();
+        }
 
         logsDOM.append("<div class='log command'>" + c + "</div>");
         logsDOM.animate({ scrollTop: logsDOM[0].scrollHeight }, 100);
+
+        
     };
 
 

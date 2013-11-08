@@ -40,14 +40,10 @@ var User = function () {
             success: function (d) {
 
                 if (d.ispositive) {
-                   
                     data = d.data;
                 } else {
-                    //TODO: handle errors
+                    ox.Log("User.GetUserData() - Negative result from WM.");
                 }
-            },
-            error: function (d) {
-                //TODO: handle errors
             }
         });
     };

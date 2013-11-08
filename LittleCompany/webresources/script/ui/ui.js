@@ -17,6 +17,9 @@
 
         //console
         Console.Init();
+
+        //main menu
+        Mainmenu.Init();
     }
 
     me.Navigate = function (to) {

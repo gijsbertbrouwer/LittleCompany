@@ -6,6 +6,8 @@
     var Init = function () {
         $('.popup').hide();
 
+        skin.find('input[type="text"]').val("");
+
         $('.blanket').fadeIn(300);
         skin.slideDown(200);
 
@@ -16,7 +18,7 @@
 
     var AddEventListeners = function () {
         skin.find('.cancel').unbind('click').click(OnCancelClick);
-        skin.find('#form_addperson').unbind('click').click(OnSubmit);
+        skin.find('#form_addperson').unbind('submit').submit(OnSubmit);
     };
 
     var OnCancelClick = function () {
@@ -36,13 +38,8 @@
                 if (d.ispositive) {
                     HidePopup();
                 } else {
-                    //TODO: handle errors
-                    alert('error');
+                    ox.Log("Addperson.OnSubmit() - Negative result from WM.");
                 }
-            },
-            error: function (d) {
-                //TODO: handle errors
-                alert('error: ' + d);
             }
         });
 

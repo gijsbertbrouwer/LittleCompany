@@ -56,13 +56,8 @@
                 if (d.ispositive) {
                     sysdata = d.data;
                 } else {
-                    //TODO: handle errors
-                    alert('error');
+                    ox.Log("Data.WM_GetSysData() - Negative result from WM.");
                 }
-            },
-            error: function (d) {
-                //TODO: handle errors
-                alert('error: ' + d);
             }
         });
     };
@@ -119,6 +114,10 @@
                 if (typeof (args.success) === "function") { args.success(data.d); /*execute function*/ }
             },
             error: function (data) {
+                if (typeof(ox.Log) == 'function') {
+                    ox.Log("Data.WM_communicateWithServer() - WM error. WM: " + args.methodUrl);
+                }
+
                 if (typeof (args.error) === "function") { args.error(data); /*execute function*/ }
             }
         };

@@ -46,6 +46,8 @@
 
         var qd = GetQueryData(q);
 
+        if(!qd.query && !qd.datatype) { return; }
+
         ox.data.CommunicateWithServer({
             methodUrl: 'Objects.asmx/QuickSearch',
             data: {
@@ -60,13 +62,8 @@
                 if (d.ispositive) {
                     RenderQuickSearchResults(d.data.searchresults);
                 } else {
-                    //TODO: handle errors
-                    alert('error');
+                    ox.Log("Mainsearch.DoQuickSearch() - Negative result from WM.");
                 }
-            },
-            error: function (d) {
-                //TODO: handle errors
-                alert('error: ' + d);
             }
         });
     };

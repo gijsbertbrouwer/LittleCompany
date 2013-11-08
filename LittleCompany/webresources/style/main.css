@@ -145,6 +145,10 @@
 
     #mainsearchform .submit {
         height: 32px;
+        margin: 0;
+        background-color: #90AE58;
+        color: #fff;
+        border: none;
     }
 
     #mainsearchbar .quicksearchresults {
@@ -154,7 +158,7 @@
         padding: 10px;
         padding-top: 45px;
         margin-top: -38px;
-        margin-left: -5px;
+        margin-left: -10px;
         display: none;
     }
 

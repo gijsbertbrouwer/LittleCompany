@@ -6,6 +6,8 @@
     var Init = function () {
         $('.popup').hide();
 
+        skin.find('input[type="text"]').val("");
+
         $('.blanket').fadeIn(300);
         skin.slideDown(200);
 
@@ -36,13 +38,8 @@
                 if (d.ispositive) {
                     HidePopup();
                 } else {
-                    //TODO: handle errors
-                    alert('error');
+                    ox.Log("AddOrganisation.OnSubmit() - Negative result from WM.");
                 }
-            },
-            error: function (d) {
-                //TODO: handle errors
-                alert('error: ' + d);
             }
         });
 
