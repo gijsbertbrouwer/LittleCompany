@@ -78,7 +78,7 @@
             }
         }
 
-        //TODO: render results
+        //render results
         if (!quicksearchDOM.is(':visible')) {
             quicksearchDOM.slideDown(100);
         }

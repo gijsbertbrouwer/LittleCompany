@@ -85,6 +85,7 @@
     <Content Include="webresources\script\communication\olddata.js" />
     <Content Include="webresources\script\jquery-2.0.3.min.js" />
     <Content Include="webresources\script\ox.js" />
+    <Content Include="webresources\script\ui\controls\console.js" />
     <Content Include="webresources\script\ui\controls\mainsearch.js" />
     <Content Include="webresources\script\ui\popups\AddOrganisation.js" />
     <Content Include="webresources\script\ui\popups\AddPerson.js" />
