@@ -12,18 +12,25 @@ namespace LittleCompany.DAL
 
         private Dictionary<string, BO.Caption> captions;
 
-        public BO.Caption GetCaption(string code, string languagecode)
+
+        public BO.Caption GetCaption(string code, string languagecode, BO.CaptionType type)
         {
             if (captions == null)
             {
-                // get teh captions (first time)
+                // get the captions (first time)
                 captions = Get_Captions(languagecode);
+            }
+
+
+            if (code.EndsWith("_") && type != BO.CaptionType.None)
+            {
+                code += type.ToString();
             }
 
 
             if (captions.ContainsKey(code))
             {
-                return captions[code];
+               return captions[code];
             }
             else
             {

@@ -13,14 +13,18 @@ namespace LittleCompany.GUI.test
         {
 
 
-           // QUICK SEARCH
-            var auth = new BL.Security().Authenticate((BO.SecurityToken)Session["token"]);
-            var searchitems = new BL.Search().Search_Quick(auth, new BO.Search.Quick()
-            {
-                 query = "",
-                 searchDataTypeId = 0
+            var c = new BL.Caption().GetCaption("@General_DataTypes_File_", "NL", BO.CaptionType.Plural);
+
+
+
+           //// QUICK SEARCH
+           // var auth = new BL.Security().Authenticate((BO.SecurityToken)Session["token"]);
+           // var searchitems = new BL.Search().Search_Quick(auth, new BO.Search.Quick()
+           // {
+           //      query = "",
+           //      searchDataTypeId = 0
                   
-            });
+           // });
 
 
 
