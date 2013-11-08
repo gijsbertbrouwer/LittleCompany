@@ -1,9 +1,61 @@
 ﻿var Data = function () {
 
     var me = this;
+    var sysdata = {};
 
     me.Init = function () {
 
+        GetSysData();
+    };
+
+    me.DataAvailable = function () {
+        return (typeof (sysdata) == 'object');
+    };
+
+    me.GetDataTypeList = function () {
+        //list of simple objects
+        var r = [
+            {
+                'caption': "Person",
+                'value': 1
+            },
+            {
+                'caption': "Organisation",
+                'value': 2
+            },
+            {
+                'caption': "File",
+                'value': 3
+            }
+        ];
+
+        return r;
+    };
+
+    var GetSysData = function () {
+        if (ox.user.securityToken) {
+            WM_GetSysData();
+        } else {
+            setTimeout(GetSysData, 200);
+        }
+    };
+
+    var WM_GetSysData = function () {
+        ox.data.CommunicateWithServer({
+            methodUrl: 'Sys.asmx/GetSystemData',
+            success: function (d) {
+                if (d.ispositive) {
+                    sysdata = d.data;
+                } else {
+                    //TODO: handle errors
+                    alert('error');
+                }
+            },
+            error: function (d) {
+                //TODO: handle errors
+                alert('error: ' + d);
+            }
+        });
     };
 
     me.CommunicateWithServer = function (args) {

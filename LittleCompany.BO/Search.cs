@@ -13,6 +13,7 @@ namespace LittleCompany.BO
             public string query { get; set; }
             public int customerid { get; set; }
             public int searchDataTypeId { get; set; }
+            //TODO: searchDataTypeId should be a list
 
 
             public List<item> searchresults { get; set; }
