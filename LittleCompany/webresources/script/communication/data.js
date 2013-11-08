@@ -4,7 +4,7 @@
     var sysdata = {};
 
     me.Init = function () {
-
+        ox.Caption = ox.data.GetCaption;
         GetSysData();
     };
 

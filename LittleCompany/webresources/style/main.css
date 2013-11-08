@@ -250,3 +250,50 @@
     .object-item.contactperson .icon {
         /*canvas*/
     }
+
+
+/*====CONSOLE====*/
+
+    #console {
+        background-color: #333;
+        color: #fff;
+        
+        height: 60%;
+        width: 100%;
+
+        position: absolute;
+        bottom: 0;
+        z-index: 100;
+    }
+
+    #console .logs {
+        height: 90%;
+        overflow-y: scroll;
+
+        padding: 10px;
+        
+        white-space: nowrap;
+    }
+
+    #console .logs .log {
+        font-size: 0.8em;
+    }
+
+    #console .commandline {
+        height: 30px;
+        background-color: #fff;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+    
+    #console .commandline .commandlineinput {
+        height: 30px;
+        width: 99%;
+        padding: 0 10px;
+        border: 0;
+    }
+
+    #console .commandline .commandlineinput:focus {
+        border: 0;
+    }
