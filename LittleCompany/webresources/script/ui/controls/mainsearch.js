@@ -161,7 +161,7 @@
                     canvasrenderer.DrawFileIcon(ctx);
                     return;
                 }
-                if (cnv.hasClass('contactperson')) {
+                if (cnv.hasClass('person')) {
                     canvasrenderer.DrawContactpersonIcon(ctx);
                     return;
                 }
