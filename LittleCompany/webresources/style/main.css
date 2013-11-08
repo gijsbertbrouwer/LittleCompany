@@ -149,8 +149,9 @@
 
     #mainsearchbar .quicksearchresults {
         background-color: #dadada;
-        width: 440px;
-        min-height: 120px;
+        width: 425px;
+        
+        padding: 10px;
         padding-top: 45px;
         margin-top: -38px;
         margin-left: -5px;
@@ -159,4 +160,93 @@
 
     #mainsearchbar .quicksearchresults .noresults {
         font-size: 0.8em;
+        color: #fff;
+        font-style: italic;
+        background-color: #afafaf;
+        height: 20px;
+        padding: 20px 10px;
+    }
+
+
+    /*OBJECT ITEM VIEW*/
+    
+    .object-item {
+        height: 60px;
+        border-bottom: 1px solid #ccc;
+        background-color: #fff;
+    }
+
+    .object-item table {
+        width: 100%;
+        border-spacing:0;
+        border-collapse:collapse;
+    }
+            
+    .object-item table, .object-item table tr, .object-item table tr td {
+        padding: 0;
+        margin: 0;
+    }
+
+    .object-item .icon {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .object-item .itemtext {
+        vertical-align: middle;
+        padding-bottom: 8px;
+    }
+
+            
+    .object-item .itemtext .itemtextcontent {
+        height: 36px;
+    }
+            
+    .object-item .itemtitle {
+        font-size: 1em;
+    }
+
+    .object-item:hover {
+        background-color: #f2f2f2;
+    }
+            
+    .object-item .itemtext .itemtype {
+        font-size: 0.7em;
+        color: #999;
+    }
+            
+    .object-item .star {
+        width: 20px;
+        height: 20px;
+        padding: 20px;
+    }
+
+
+    /*organisation*/
+    .object-item.organisation .itemtitle {
+        color: #AEB521;
+    }
+            
+    .object-item.organisation .icon {
+        /*canvas*/
+    }
+
+    /*contact person*/
+    .object-item.contactperson .itemtitle {
+        color: #00A3DF;
+    }
+            
+    .object-item.contactperson .icon {
+        /*canvas*/
+    }
+
+    /*file*/
+    .object-item.file .itemtitle {
+        color: #82368C;
+    }
+            
+    .object-item.contactperson .icon {
+        /*canvas*/
     }

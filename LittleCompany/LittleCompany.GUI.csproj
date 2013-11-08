@@ -79,6 +79,7 @@
     <Content Include="webforms\popups\Add_Organisation.aspx" />
     <Content Include="webmethods\Objects.asmx" />
     <Content Include="webmethods\Security.asmx" />
+    <Content Include="webmethods\Sys.asmx" />
     <Content Include="webmethods\User.asmx" />
     <Content Include="webresources\img\loginbg.jpg" />
     <Content Include="webresources\script\communication\data.js" />
@@ -92,6 +93,8 @@
     <Content Include="webresources\script\user\user.js" />
     <Content Include="webresources\script\ui\screens\dashboard.js" />
     <Content Include="webresources\script\ui\ui.js" />
+    <Content Include="webresources\script\util\CanvasRenderer.js" />
+    <Content Include="webresources\script\util\stringutil.js" />
     <Content Include="webresources\style\dashboard.css" />
     <Content Include="webresources\style\login.css" />
     <Content Include="webresources\style\main.css" />
@@ -141,6 +144,10 @@
     </Compile>
     <Compile Include="webmethods\Objects.asmx.cs">
       <DependentUpon>Objects.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="webmethods\Sys.asmx.cs">
+      <DependentUpon>Sys.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="webmethods\User.asmx.cs">
