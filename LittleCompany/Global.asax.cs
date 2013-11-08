@@ -14,6 +14,10 @@ namespace LittleCompany.GUI
         {
             LittleCompany.DAL.Connection.connectionstring = LittleCompany.GUI.Properties.Settings.Default.DBConnection;
             LittleCompany.BL.Cyptography.salt = LittleCompany.GUI.Properties.Settings.Default.Salt;
+
+            // Load all captions to memory
+            library.Globals.captions.Load();
+
             
         }
 

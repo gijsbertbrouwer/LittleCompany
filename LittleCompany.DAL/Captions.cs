@@ -8,67 +8,44 @@ namespace LittleCompany.DAL
 {
     public class Captions
     {
-        //Captions_GetAllByLanguageCode
 
-        private Dictionary<string, BO.Caption> captions;
-
-
-        public BO.Caption GetCaption(string code, string languagecode, BO.CaptionType type)
+        public Dictionary<string, BO.Language> Get_CaptionsAll()
         {
-            if (captions == null)
-            {
-                // get the captions (first time)
-                captions = Get_Captions(languagecode);
-            }
 
-
-            if (code.EndsWith("_") && type != BO.CaptionType.None)
-            {
-                code += type.ToString();
-            }
-
-
-            if (captions.ContainsKey(code))
-            {
-               return captions[code];
-            }
-            else
-            {
-                // caption could not be found
-                //log error, missing caption
-                new DAL.Logger().Log("Dal.Captions", string.Format("(GetCaption) - The caption: {0} was not found in language {1}", code, languagecode));
-                
-                return null;
-            }
-
-
-        }
-
-
-        private Dictionary<string, BO.Caption> Get_Captions(string languagecode)
-        {
-            var r = new Dictionary<string, BO.Caption>();
-
+            var r = new Dictionary<string, BO.Language>();
+       
             try
             {
                 using (SqlConnection connection = new SqlConnection(DAL.Connection.connectionstring))
                 {
-                    using (SqlCommand cmd = new SqlCommand("Captions_GetAllByLanguageCode") { CommandType = System.Data.CommandType.StoredProcedure, Connection = connection })
+                    using (SqlCommand cmd = new SqlCommand("Captions_GetAll") { CommandType = System.Data.CommandType.StoredProcedure, Connection = connection })
                     {
-                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@languagecode", Value = languagecode });
-
 
                         connection.Open();
                         SqlDataReader reader = cmd.ExecuteReader();
 
                         if (reader.HasRows)
                         {
+
+                          var currentlanguage = new BO.Language();
+
+
                             while (reader.Read())
                             {
 
                                 string code = (string)reader["code"];
+                                string lcode = (string)reader["languagecode"];
 
-                                r.Add(code, new BO.Caption()
+                                if(currentlanguage.languagecode != lcode){
+                                    currentlanguage = new BO.Language()
+                                    {
+                                        languagecode = lcode,
+                                        captions = new Dictionary<string,BO.Caption>()
+                                    };
+                                    r.Add(lcode, currentlanguage);
+                                }
+
+                                currentlanguage.captions.Add(code, new BO.Caption()
                                 {
                                     id = (int)reader["id"],
                                     caption = (string)reader["caption"],
@@ -94,6 +71,5 @@ namespace LittleCompany.DAL
 
             return r;
         }
-
     }
 }

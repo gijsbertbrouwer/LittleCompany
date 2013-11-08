@@ -67,6 +67,7 @@
   <ItemGroup>
     <Content Include="db scripts\20131105 - Add sp create organisation.sql" />
     <Content Include="db scripts\20131105-update.sql" />
+    <Content Include="db scripts\20131108 - caption system.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

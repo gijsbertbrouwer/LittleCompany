@@ -13,15 +13,16 @@ namespace LittleCompany.GUI.test
         {
 
 
-            //var c = new BL.Caption().GetCaption("@General_DataTypes_File_", "NL", BO.CaptionType.Plural);
+           // var c = new BL.Caption().GetCaption("@General_DataTypes_File_", "NL", BO.CaptionType.Plural);
+            var c = library.Globals.captions.GetCaption("@General_DataTypes_File_", "NL", BO.CaptionType.Plural);
+            if (c.code == "")
+            {
+                var s = "";
+            }
 
+        //var pid =    new BL.Person().CreatePerson("aaa gijsbert test v1", 1002, 6002);
 
-
-        var pid =    new BL.Person().CreatePerson("aaa gijsbert test v1", 1002, 6002);
-
-
-
-
+         
            //// QUICK SEARCH
            // var auth = new BL.Security().Authenticate((BO.SecurityToken)Session["token"]);
            // var searchitems = new BL.Search().Search_Quick(auth, new BO.Search.Quick()

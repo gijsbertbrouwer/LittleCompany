@@ -109,6 +109,7 @@
     <Compile Include="helpers\functions.ashx.cs">
       <DependentUpon>functions.ashx</DependentUpon>
     </Compile>
+    <Compile Include="library\Globals.cs" />
     <Compile Include="test\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
