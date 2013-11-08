@@ -266,9 +266,17 @@
         z-index: 100;
     }
 
-    #console .log {
-        height: 100%;
+    #console .logs {
+        height: 90%;
+        overflow-y: scroll;
+
         padding: 10px;
+        
+        white-space: nowrap;
+    }
+
+    #console .logs .log {
+        font-size: 0.8em;
     }
 
     #console .commandline {
