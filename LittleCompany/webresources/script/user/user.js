@@ -25,9 +25,13 @@ var User = function () {
         return (typeof(data) == 'object');
     };
 
-    me.GetFavorites = function (success) {
+    me.GetFavorites = function () {
         return data.favorites;
     };
+
+    me.GetId = function () {
+        return data.id;
+    }
 
      
     var GetUserData = function () {

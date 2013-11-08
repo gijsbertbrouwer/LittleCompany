@@ -57,12 +57,19 @@ namespace LittleCompany.GUI.webmethods
             return fb;
         }
 
-
+        [WebMethod]
         public BO.Feedback QuickSearch(BO.SecurityToken securityToken, BO.Search.Quick quicksearch)
         {
             var fb = new BO.Feedback();
-            fb.data = quicksearch;
-            fb.ispositive = true;
+
+            var auth = new BL.Security().Authenticate(securityToken);
+            var result = new BL.Search().Search_Quick(auth, quicksearch);
+            if (result != null)
+            {
+                fb.data = result;
+                fb.ispositive = true;
+            }
+
             return fb;
 
         }
