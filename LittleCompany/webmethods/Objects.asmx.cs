@@ -44,8 +44,8 @@ namespace LittleCompany.GUI.webmethods
 
             var auth = new BL.Security().Authenticate(securityToken);
 
-            int newOrgId = 1;   // = new BL.Organisation().CreatePerson(personName, auto.customerid);
-            if (newOrgId < 0)
+            int newPersonId = new BL.Person().CreatePerson(personName, 1, auth.customerid);
+            if (newPersonId < 0)
             {
                 fb.messages.Add("Er is een fout opgetreden. De contactpersoon kon niet worden toegevoegd.");
             }

@@ -17,7 +17,7 @@
         var r = [
             {
                 'caption': "Person",
-                'value': 1
+                'value': 3
             },
             {
                 'caption': "Organisation",
@@ -25,12 +25,21 @@
             },
             {
                 'caption': "File",
-                'value': 3
+                'value': 1
             }
         ];
 
         return r;
     };
+
+    me.GetCaption = function (code) {
+        if (sysdata && sysdata.captions && sysdata.captions[code]) {
+            return sysdata.captions[code];
+        } else {
+            return code;
+        }
+    }
+
 
     var GetSysData = function () {
         if (ox.user.securityToken) {
@@ -57,6 +66,8 @@
             }
         });
     };
+
+
 
     me.CommunicateWithServer = function (args) {
 
