@@ -20,9 +20,15 @@
 
         //main menu
         Mainmenu.Init();
+
     }
 
-    me.Navigate = function (to) {
+    var Navigate = function (e) {
+
+        var to = e.detail.screen;
+        var data = e.detail;
+
+
         //hide all screens
         $('.oxsection').hide();
 
@@ -44,9 +50,13 @@
             ns = window[ns];
 
             if (typeof (ns) == 'function') {
-                openscreenclass = new ns();
+                openscreenclass = new ns(data);
+            } else {
+                ox.Log("Ui.Navigate() - Trying to navigate to a screen without js class (" + to + ".js).")
             }
 
+        } else {
+            ox.Log("Ui.Navigate() - Trying to navigate to a screen without DOM skin in home.html.")
         }
     };
 
@@ -70,7 +80,7 @@
     };
 
     var AddEventListeners = function () {
-        //todo
+        window.addEventListener('navigate', Navigate);
     };
 
 

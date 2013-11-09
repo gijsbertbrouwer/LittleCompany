@@ -47,6 +47,9 @@
     
 
     var RenderLogs = function () {
+
+        logsDOM.empty();
+
         var i = 0, l = logs.length, log, logskin = "";
 
         for (i; i < l; i++) {

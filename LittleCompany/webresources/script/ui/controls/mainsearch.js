@@ -37,6 +37,14 @@
 
     var OnSearchFormSubmit = function () {
         //TODO: handle actual search
+        var q = queryform.find('.searchquery').val();
+        if(!q) { return; }
+
+        var qd = GetQueryData(q);
+
+        quicksearchDOM.slideUp(100);
+
+        new ox.Event('navigate', 'searchresults', qd);
 
         return false;
     };

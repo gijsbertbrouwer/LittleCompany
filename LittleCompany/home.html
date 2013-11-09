@@ -18,6 +18,7 @@
     <script src="webresources/script/ui/ui.js"></script>
 
     <script src="webresources/script/ui/screens/dashboard.js"></script>
+    <script src="webresources/script/ui/screens/searchresults.js"></script>
 
     <script src="webresources/script/ui/popups/Addorganisation.js"></script>
     <script src="webresources/script/ui/popups/Addperson.js"></script>
@@ -29,7 +30,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             new OxFramework();
-            ox.Navigate("dashboard");
+            new ox.Event('navigate', 'dashboard');
+
         });
     </script>
 
@@ -102,6 +104,10 @@
             <div class="tile-title">Starred Items</div>
             <div id="favorites-list"></div>
         </div>
+    </div>
+
+    <div class="oxsection searchresults">
+
     </div>
 
 </body>
