@@ -30,7 +30,7 @@ namespace LittleCompany.DAL
             };
 
 
-            string secretpassword = Membership.GeneratePassword(12, 5);
+            string secretpassword = ""; //Membership.GeneratePassword(8,0);
 
 
             // save in db (get back id and guid)
@@ -115,7 +115,7 @@ namespace LittleCompany.DAL
         public bool WriteFileToFileSystem(string fileguid, string customerpath, System.IO.Stream inputstream, string secretpassword, string originalname)
         {
             string OndorUploadPath = new DAL.Settings().GetSetting("OndorFilePath").value;
-            string filedir= System.IO.Path.Combine(OndorUploadPath, customerpath).ToString();
+            string filedir = System.IO.Path.Combine(OndorUploadPath, customerpath).ToString();
 
             // create path if possible
             if (!CreatePathIfMising(filedir)) { return false; }
@@ -124,7 +124,8 @@ namespace LittleCompany.DAL
             {
 
                 var filepath = System.IO.Path.Combine(filedir, fileguid + ".ondor");
-                WriteFileEncryptedTo_FileSystem(inputstream, filepath, secretpassword);
+                var filepathEncrypted = System.IO.Path.Combine(filedir, fileguid + ".secureondor");
+                //WriteFileEncryptedTo_FileSystem(inputstream, filepathEncrypted, secretpassword);
 
                 //var oldfilepath = System.IO.Path.Combine(filedir, "8af465d2-59ea-469f-a756-f58f14c24572.ondor");
                 //var decryptedfile = System.IO.Path.Combine(filedir, originalname);
@@ -172,70 +173,243 @@ namespace LittleCompany.DAL
 
         }
 
-        private bool WriteFileEncryptedTo_FileSystem(System.IO.Stream inputStream, string outputFile, string password)
+        public BO.File GetFile(int fileid, int customerid)
         {
+            // get file info out of database
+
+            var dbfile = GetFile_DB(fileid, customerid);
+            // todo: check if the dbfile is there.. could not be found?
+
+            var f = dbfile.versions.FirstOrDefault();
+
+            string OndorUploadPath = new DAL.Settings().GetSetting("OndorFilePath").value;
+            string filepath = System.IO.Path.Combine(OndorUploadPath, f.path, f.guid  + ".ondor").ToString();
+
+       
+
+            f.filestream = GetFileFromFileSystem(filepath);
+
+            return dbfile;
+
+        }
+
+        private BO.File GetFile_DB(int fileid, int customerid)
+        {
+            var file = new BO.File()
+            {
+                versions = new List<BO.File.Version>()
+            };
 
             try
             {
-                UnicodeEncoding UE = new UnicodeEncoding();
-                byte[] key = UE.GetBytes(password);
 
-                FileStream fsCrypt = new FileStream(outputFile, FileMode.Create);
 
-                RijndaelManaged RMCrypto = new RijndaelManaged();
-                CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateEncryptor(key, key), CryptoStreamMode.Write);
-
-                int data;
-                while ((data = inputStream.ReadByte()) != -1)
+                using (SqlConnection connection = new SqlConnection(DAL.Connection.connectionstring))
                 {
-                    cs.WriteByte((byte)data);
-                    inputStream.Close();
-                    cs.Close();
-                    fsCrypt.Close();
+                    using (SqlCommand cmd = new SqlCommand("File_Get") { CommandType = System.Data.CommandType.StoredProcedure, Connection = connection })
+                    {
+
+
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@fileid", Value = fileid });
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@customerid", Value = customerid });
+
+
+                        connection.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        if (dr.HasRows)
+                        {
+
+                            while (dr.Read())
+                            {
+                                //id, name, organisationid, personid, customerid, [path], dateupload, [version], [guid], [password]
+
+                                file.name = (string)dr["name"];
+                                if (dr["organisationid"]  != System.DBNull.Value  )
+                                {
+                                    file.organisationid = (int)dr["organisationid"];
+                                }
+
+                                if (dr["personid"] != System.DBNull.Value)
+                                {
+                                    file.personid = (int)dr["personid"];
+                                }
+
+                                file.versions.Add(new BO.File.Version()
+                                {
+                                    id = (int)dr["id"],
+                                    guid = ((System.Guid)dr["guid"]).ToString(),
+                                    version = (int) dr["version"],
+                                    dateuploaded = (DateTime)dr["dateupload"],
+                                    path = (string)dr["path"],
+                                    password = (string)dr["password"]
+                                });
+
+                            }
+                        }
+
+
+
+                    }
                 }
+
+                return file;
+
             }
             catch (Exception e)
             {
 
-                return false;
-
+                // do some errorlogic, this went terrible wrong
+                new DAL.Logger().Log("DAL.Files", string.Format("(GetFile_DB) - The file with fileid: {0}, customerid {1} could not be found.", fileid,customerid));
+                return null;
             }
-
-            return true;
 
 
 
         }
 
-
-        private System.IO.Stream GetFileDecryptedFrom_FileSystem(string inputFile, string outputFile, string secretpassword)
+        private FileStream GetFileFromFileSystem(string pathSource)
         {
 
-            UnicodeEncoding UE = new UnicodeEncoding();
-            byte[] key = UE.GetBytes(secretpassword);
 
-            FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
 
-            RijndaelManaged RMCrypto = new RijndaelManaged();
-
-            CryptoStream cs = new CryptoStream(fsCrypt,
-                RMCrypto.CreateDecryptor(key, key),
-                CryptoStreamMode.Read);
-
-            FileStream fsOut = new FileStream(outputFile, FileMode.Create);
-
-            int data;
-            while ((data = cs.ReadByte()) != -1)
+            try
             {
-                fsOut.WriteByte((byte)data);
+
+                //using (FileStream fsSource = new FileStream(pathSource,
+                //    FileMode.Open, FileAccess.Read))
+                //{
+
+                //    // Read the source file into a byte array. 
+                //    byte[] bytes = new byte[fsSource.Length];
+                //    int numBytesToRead = (int)fsSource.Length;
+                //    int numBytesRead = 0;
+                //    while (numBytesToRead > 0)
+                //    {
+                //        // Read may return anything from 0 to numBytesToRead. 
+                //        int n = fsSource.Read(bytes, numBytesRead, numBytesToRead);
+
+                //        // Break when the end of the file is reached. 
+                //        if (n == 0) { break; }
+
+                //        numBytesRead += n;
+                //        numBytesToRead -= n;
+                //    }
+                //    numBytesToRead = bytes.Length;
+
+
+                using (FileStream fstr = new FileStream(pathSource, FileMode.Open))
+                {
+                    return fstr;
+                }
+
+
+                // }
+            }
+            catch (FileNotFoundException e)
+            {
+                // Console.WriteLine(ioEx.Message);
+                new DAL.Logger().Log("DAL.Files", string.Format("(GetFileFromFileSystem) - The file could not find the file on path {0} with message {1}", pathSource, e.Message));
+                return null;
             }
 
-            fsOut.Close();
-            cs.Close();
-            fsCrypt.Close();
 
-            return fsOut;
+
         }
+
+
+        //private bool WriteFileEncryptedTo_FileSystem(System.IO.Stream inputStream, string outputFile, string password)
+        //{
+
+        //    try
+        //    {
+        //        UnicodeEncoding UE = new UnicodeEncoding();
+        //        byte[] key = UE.GetBytes(password);
+
+        //        FileStream fsCrypt = new FileStream(outputFile, FileMode.Create);
+
+        //        RijndaelManaged RMCrypto = new RijndaelManaged();
+        //        CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateEncryptor(key, key), CryptoStreamMode.Write);
+
+        //        int data;
+        //        while ((data = inputStream.ReadByte()) != -1)
+        //        {
+        //            cs.WriteByte((byte)data);
+        //            inputStream.Close();
+        //            cs.Close();
+        //            fsCrypt.Close();
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //        return false;
+
+        //    }
+
+        //    return true;
+
+
+
+        //}
+
+        //private System.IO.Stream GetFileDecryptedFrom_FileSystem(string inputFile, string outputFile, string secretpassword)
+        //{
+
+        //    UnicodeEncoding UE = new UnicodeEncoding();
+        //    byte[] key = UE.GetBytes(secretpassword);
+
+        //    FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
+
+        //    RijndaelManaged RMCrypto = new RijndaelManaged();
+
+        //    CryptoStream cs = new CryptoStream(fsCrypt,
+        //        RMCrypto.CreateDecryptor(key, key),
+        //        CryptoStreamMode.Read);
+
+        //    FileStream fsOut = new FileStream(outputFile, FileMode.Create);
+
+        //    int data;
+        //    while ((data = cs.ReadByte()) != -1)
+        //    {
+        //        fsOut.WriteByte((byte)data);
+        //    }
+
+        //    fsOut.Close();
+        //    cs.Close();
+        //    fsCrypt.Close();
+
+        //    return fsOut;
+        //}
+
+        //private System.IO.Stream GetFileDecryptedFrom_FileSystem(string inputFile, string outputFile, string secretpassword)
+        //{
+
+        //    UnicodeEncoding UE = new UnicodeEncoding();
+        //    byte[] key = UE.GetBytes(secretpassword);
+
+        //    FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
+
+        //    RijndaelManaged RMCrypto = new RijndaelManaged();
+
+        //    CryptoStream cs = new CryptoStream(fsCrypt,
+        //        RMCrypto.CreateDecryptor(key, key),
+        //        CryptoStreamMode.Read);
+
+        //    FileStream fsOut = new FileStream(outputFile, FileMode.Create);
+
+        //    int data;
+        //    while ((data = cs.ReadByte()) != -1)
+        //    {
+        //        fsOut.WriteByte((byte)data);
+        //    }
+
+        //    fsOut.Close();
+        //    cs.Close();
+        //    fsCrypt.Close();
+
+        //    return fsOut;
+        //}
+
 
 
     }

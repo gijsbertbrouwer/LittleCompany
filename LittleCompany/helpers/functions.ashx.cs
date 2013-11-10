@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -22,13 +23,13 @@ namespace LittleCompany.GUI.helpers
             context.Response.ContentType = "application/json";
             var json = new JavaScriptSerializer();
 
-   
+
             string token = "";
             if (String.IsNullOrEmpty(context.Request.QueryString["token"]))
             {
                 r.ispositive = false;
                 r.messages.Add("U mist de token in de aanvraag");
-                context.Response.Write(json.Serialize(r)); 
+                context.Response.Write(json.Serialize(r));
                 return;
             }
 
@@ -40,7 +41,7 @@ namespace LittleCompany.GUI.helpers
             {
                 r.ispositive = false;
                 r.messages.Add("U moet opnieuw inloggen");
-                context.Response.Write(json.Serialize(r)); 
+                context.Response.Write(json.Serialize(r));
                 return;
             }
 
@@ -53,7 +54,7 @@ namespace LittleCompany.GUI.helpers
             {
 
                 r.messages.Add("U mist de action in de querystring");
-                context.Response.Write(json.Serialize(r)); 
+                context.Response.Write(json.Serialize(r));
                 return;
             }
 
@@ -68,18 +69,134 @@ namespace LittleCompany.GUI.helpers
 
                     r = UploadFiles(context, auth);
                     break;
+                case "getfile":
+
+                    GetFile(context, auth);
+                    return;
+                    break;
                 default:
                     r.messages.Add("U mist een geldige action in de querystring");
-                    
+
                     break;
             }
 
-           
-            context.Response.Write(json.Serialize(r)); 
+
+            context.Response.Write(json.Serialize(r));
 
             return;
 
         }
+
+
+
+        private void StreamFile(string filepath, HttpContext context, string filename)
+        {
+
+
+            var Response = context.Response;
+
+            FileStream fs;
+            BinaryReader br;
+            FileInfo f;
+
+            string showinline = "inline;";
+
+
+            f = new FileInfo(filepath);
+            if (f.Exists)
+            {
+                fs = new FileStream(filepath, FileMode.Open);
+
+                br = new BinaryReader(fs);
+                Byte[] dataBytes = br.ReadBytes((int)(fs.Length - 1));
+                if (dataBytes != null)
+                {
+                  
+
+                    Response.Buffer = true;
+                    Response.Clear();
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    context.Response.ContentType = "application";
+                    Response.AddHeader("content-disposition", showinline + " filename=" + filename);
+                    Response.BinaryWrite(dataBytes);
+                }
+
+                br.Close();
+                fs.Close();
+            }
+            else
+            {
+
+               // ErrorLogic.SaveErrorMessage("Error in download.aspx with filetype: " + filetype + " And fileid: " + fileId + " The file could not be found on the server.");
+
+
+
+            }
+
+        }
+
+
+        private void GetFile(HttpContext context, BO.AuthenticationInfo auth)
+        {
+
+
+            int fileid = 0;
+
+            if (context.Request.QueryString["fileid"] == null)
+            {
+                // todo errorlogic
+
+            }
+
+            string fileidstr = context.Request.QueryString["fileid"];
+            if (!int.TryParse(context.Request.QueryString["fileid"].ToString(), out fileid))
+            {
+                // todo: errorlogic, no correct fileid
+            }
+
+
+            var file = new BL.Files().GetFile(fileid, auth.customerid);
+            var v = file.versions.FirstOrDefault();
+
+            string OndorUploadPath = new DAL.Settings().GetSetting("OndorFilePath").value;
+            string filepath = System.IO.Path.Combine(OndorUploadPath, v.path, v.guid + ".ondor").ToString();
+            
+            
+            StreamFile(filepath, context, file.name);
+
+            return;
+            // todo: check if file is there
+          
+
+
+            BinaryReader br = new BinaryReader(v.filestream);
+
+
+            string showinline = "attachment;";
+
+
+            Byte[] dataBytes = br.ReadBytes((int)(v.filestream.Length - 1));
+            if (dataBytes != null)
+            {
+                context.Response.Buffer = true;
+                context.Response.Clear();
+                context.Response.ClearContent();
+                context.Response.ClearHeaders();
+                // context.Response.ContentType = "application/pdf";
+                context.Response.AddHeader("content-disposition", showinline + " filename=" + file.name);
+                context.Response.BinaryWrite(dataBytes);
+
+            }
+
+            br.Close();
+            v.filestream.Close();
+
+            context.Response.End();
+
+        }
+
+
 
 
 
@@ -93,6 +210,8 @@ namespace LittleCompany.GUI.helpers
                 messages = new List<string>()
             };
 
+            var uploadedfils = new List<BO.File>();
+
             int succesUploadedFiles = 0;
 
             if (context.Request.Files.Count > 0)
@@ -101,12 +220,12 @@ namespace LittleCompany.GUI.helpers
                 foreach (string key in files)
                 {
                     HttpPostedFile file = files[key];
-                    string fileName =  System.IO.Path.GetFileName(file.FileName);
+                    string fileName = System.IO.Path.GetFileName(file.FileName);
 
-                    var fupload = new BL.Files().CreateNewFileb(file.InputStream, fileName, 0, auth.customerid, 0, DateTime.Now);
+                    var fupload = new BL.Files().CreateNewFile(file.InputStream, fileName, 0, auth.customerid, 0, DateTime.Now);
                     if (fupload != null)
                     {
-                        succesUploadedFiles++;
+                        succesUploadedFiles++; uploadedfils.Add(fupload);
                     }
 
 
@@ -116,7 +235,7 @@ namespace LittleCompany.GUI.helpers
 
             r.ispositive = true;
             r.messages.Add(string.Format("{0} files succesfully uploaded (TODO CAPTION)", succesUploadedFiles));
-
+            r.data = uploadedfils;
             return r;
 
         }

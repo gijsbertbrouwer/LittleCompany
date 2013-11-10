@@ -24,12 +24,15 @@
                
                 $.ajax({
                     type: "POST",
-                    url: "functions.ashx?token=828681dc27f5445baa2e787d6920fc7d&action=uploadfiles",
+                    url: "functions.ashx?token=74349c6378a3498fb2ca20d669f14cd3&action=uploadfiles",
                     contentType: false,
                     processData: false,
                     data: datatoupload,
                     success: function (result) {
                         alert(result.messages.join("\n"));
+                        if (result.ispositive && result.data) {
+                            DownloadFile(result.data);
+                        }
                     },
                     error: function () {
                         alert("There was error uploading files!");
@@ -40,6 +43,16 @@
 
 
         });
+
+        function DownloadFile(data) {
+            var filestodownload = data;
+
+            var fileid = data[0].versions[0].id;
+
+            window.open("functions.ashx?token=74349c6378a3498fb2ca20d669f14cd3&action=getfile&fileid=" + fileid);
+
+
+        }
 
 
 

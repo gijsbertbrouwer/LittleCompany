@@ -18,7 +18,9 @@ namespace LittleCompany.BO
             public int version { get; set; }
             public DateTime dateuploaded { get; set; }
             public int id { get; set; }
-
+            public string path { get; set; }
+            public string password { get; set; }
+            public System.IO.FileStream filestream { get; set; }
         }
     }
 }
