@@ -187,7 +187,7 @@ namespace LittleCompany.DAL
 
        
 
-            f.filestream = GetFileFromFileSystem(filepath);
+           // f.filestream = GetFileFromFileSystem(filepath);
 
             return dbfile;
 
@@ -267,54 +267,54 @@ namespace LittleCompany.DAL
 
         }
 
-        private FileStream GetFileFromFileSystem(string pathSource)
-        {
+        //private FileStream GetFileFromFileSystem(string pathSource)
+        //{
 
 
 
-            try
-            {
+        //    try
+        //    {
 
-                //using (FileStream fsSource = new FileStream(pathSource,
-                //    FileMode.Open, FileAccess.Read))
-                //{
+        //        //using (FileStream fsSource = new FileStream(pathSource,
+        //        //    FileMode.Open, FileAccess.Read))
+        //        //{
 
-                //    // Read the source file into a byte array. 
-                //    byte[] bytes = new byte[fsSource.Length];
-                //    int numBytesToRead = (int)fsSource.Length;
-                //    int numBytesRead = 0;
-                //    while (numBytesToRead > 0)
-                //    {
-                //        // Read may return anything from 0 to numBytesToRead. 
-                //        int n = fsSource.Read(bytes, numBytesRead, numBytesToRead);
+        //        //    // Read the source file into a byte array. 
+        //        //    byte[] bytes = new byte[fsSource.Length];
+        //        //    int numBytesToRead = (int)fsSource.Length;
+        //        //    int numBytesRead = 0;
+        //        //    while (numBytesToRead > 0)
+        //        //    {
+        //        //        // Read may return anything from 0 to numBytesToRead. 
+        //        //        int n = fsSource.Read(bytes, numBytesRead, numBytesToRead);
 
-                //        // Break when the end of the file is reached. 
-                //        if (n == 0) { break; }
+        //        //        // Break when the end of the file is reached. 
+        //        //        if (n == 0) { break; }
 
-                //        numBytesRead += n;
-                //        numBytesToRead -= n;
-                //    }
-                //    numBytesToRead = bytes.Length;
-
-
-                using (FileStream fstr = new FileStream(pathSource, FileMode.Open))
-                {
-                    return fstr;
-                }
+        //        //        numBytesRead += n;
+        //        //        numBytesToRead -= n;
+        //        //    }
+        //        //    numBytesToRead = bytes.Length;
 
 
-                // }
-            }
-            catch (FileNotFoundException e)
-            {
-                // Console.WriteLine(ioEx.Message);
-                new DAL.Logger().Log("DAL.Files", string.Format("(GetFileFromFileSystem) - The file could not find the file on path {0} with message {1}", pathSource, e.Message));
-                return null;
-            }
+        //        using (FileStream fstr = new FileStream(pathSource, FileMode.Open))
+        //        {
+        //            return fstr;
+        //        }
+
+
+        //        // }
+        //    }
+        //    catch (FileNotFoundException e)
+        //    {
+        //        // Console.WriteLine(ioEx.Message);
+        //        new DAL.Logger().Log("DAL.Files", string.Format("(GetFileFromFileSystem) - The file could not find the file on path {0} with message {1}", pathSource, e.Message));
+        //        return null;
+        //    }
 
 
 
-        }
+        //}
 
 
         //private bool WriteFileEncryptedTo_FileSystem(System.IO.Stream inputStream, string outputFile, string password)

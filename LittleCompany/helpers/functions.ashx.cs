@@ -165,34 +165,7 @@ namespace LittleCompany.GUI.helpers
             
             StreamFile(filepath, context, file.name);
 
-            return;
-            // todo: check if file is there
-          
 
-
-            BinaryReader br = new BinaryReader(v.filestream);
-
-
-            string showinline = "attachment;";
-
-
-            Byte[] dataBytes = br.ReadBytes((int)(v.filestream.Length - 1));
-            if (dataBytes != null)
-            {
-                context.Response.Buffer = true;
-                context.Response.Clear();
-                context.Response.ClearContent();
-                context.Response.ClearHeaders();
-                // context.Response.ContentType = "application/pdf";
-                context.Response.AddHeader("content-disposition", showinline + " filename=" + file.name);
-                context.Response.BinaryWrite(dataBytes);
-
-            }
-
-            br.Close();
-            v.filestream.Close();
-
-            context.Response.End();
 
         }
 
