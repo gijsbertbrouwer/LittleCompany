@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace LittleCompany.BL
@@ -16,6 +19,8 @@ namespace LittleCompany.BL
             data = System.Security.Cryptography.MD5.Create().ComputeHash(data);
             return Convert.ToBase64String(data);
         }
+
+
 
 
     }
