@@ -6,7 +6,7 @@
     var Init = function () {
         var query = classargs.query;
 
-        skin.append("searching for '" + query + "'.")
+        skin.append("searching for '" + query + "'.");
     };
 
     me.Destroy = function () {

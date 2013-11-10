@@ -81,6 +81,13 @@
 
     var AddEventListeners = function () {
         window.addEventListener('navigate', Navigate);
+
+        $('#ondorlogocanvas').unbind('click').click(OnLogoClick);
+
+    };
+
+    var OnLogoClick = function () {
+        new ox.Event('navigate', 'dashboard');
     };
 
 

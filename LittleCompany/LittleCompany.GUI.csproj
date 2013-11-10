@@ -93,6 +93,7 @@
     <Content Include="webresources\script\ui\controls\mainsearch.js" />
     <Content Include="webresources\script\ui\popups\AddOrganisation.js" />
     <Content Include="webresources\script\ui\popups\AddPerson.js" />
+    <Content Include="webresources\script\ui\screens\item.js" />
     <Content Include="webresources\script\ui\screens\searchresults.js" />
     <Content Include="webresources\script\user\user.js" />
     <Content Include="webresources\script\ui\screens\dashboard.js" />

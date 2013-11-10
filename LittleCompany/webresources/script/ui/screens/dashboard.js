@@ -4,6 +4,7 @@
     var skin = $('.oxsection.dashboard');
 
     var canvasrenderer;
+    var favitems;
 
     var Init = function () {
         canvasrenderer = new Canvasrenderer();
@@ -27,6 +28,8 @@
     var OnDataAvailable = function () {
         RenderFavorites();
 
+        Mainmenu.Reset();
+
         Mainmenu.AddButton({
             caption: "Add organisation",
             action: OnAddOrganisationButtonClick,
@@ -47,6 +50,23 @@
 
     var AddEventListeners = function () {
         skin.find('.star').unbind('hover').hover(OnStarOver, OnStarOut);
+        skin.find('.starred-item').unbind('click').click(OnStarredItemClick);
+    };
+
+    var OnStarredItemClick = function () {
+        var cid = $(this).attr('clickid');
+        if (!cid) {
+            ox.Log("Dashboard.OnStarredItemClick() - Object clicked without clickid.");
+            return;
+        }
+
+        var obj = favitems[cid];
+        if (!obj) {
+            ox.Log("Dashboard.OnStarredItemClick() - Object could not be found by clickid. Clickid: '" + cid + "'. ");
+            return;
+        }
+
+        new ox.Event('navigate', 'item', obj);
     };
 
     var OnAddOrganisationButtonClick = function () { 
@@ -83,7 +103,7 @@
         var favs = ox.user.GetFavorites();
         if (!favs || !favs.length) { return; }  //TODO: log
 
-
+        favitems = [];
         var i = 0, l = favs.length, fav, favskin = "";
         for (i; i < l; i++) {
             fav = favs[i];
@@ -95,29 +115,28 @@
                 public string name { get; set; }
             */
 
-            switch (fav.datatypeid) {
-                case 1:
-                    fav.datatype = "organisation"
-                    break;
-                case 2:
-                    fav.datatype = "contactperson"
-                    break;
-                case 3:
-                    fav.datatype = "file"
-                    break;
-                default:
-                    fav.datatype = ""
-                    break;
+            var dtlist = ox.data.GetDataTypeList();
+
+            var dtcaption = "unknown type";
+
+            var i = 0, l = dtlist.length, dt;
+            for (i; i < l; i++) {
+                dt = dtlist[i];
+                if (dt && dt.value == fav.datatypeid) {
+                    dtcaption = dt.caption;
+                }
             }
 
-            favskin += "<div class='starred-item " + fav.datatype + "' clickid='" + fav.id + "'>" +
+            favitems[fav.id] = fav;
+
+            favskin += "<div class='starred-item " + dtcaption.toLowerCase() + "' clickid='" + fav.id + "'>" +
                 "<table><tr>" +
                     "<td class='icon'>" +
-                        "<canvas class='iconcanvas " + fav.datatype + "' width='40' height='40'></canvas>" +
+                        "<canvas class='iconcanvas " + dtcaption.toLowerCase() + "' width='40' height='40'></canvas>" +
                     "</td><td class='itemtext'>" +
                         "<div class='itemtextcontent'>" +
                             "<div class='itemtitle'>" + fav.name + "</div>" +
-                            "<div class='itemtype'>" + fav.datatypecaption + "</div>" +
+                            "<div class='itemtype'>" + dtcaption + "</div>" +
                         "</div>" +
                     "</td><td class='star'>" +
                         "<canvas class='starcanvas' width='20' height='20'></canvas>" +

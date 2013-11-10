@@ -3,6 +3,7 @@
     var skin = $('#mainsearchbar');
     var queryform = skin.find("#mainsearchform");
     var quicksearchDOM = skin.find('.quicksearchresults');
+    var quicksearchresults;
 
     var Init = function () {
 
@@ -129,6 +130,8 @@
         quicksearchDOM.find('.object-item').remove();   //remove existing results
         quicksearchDOM.find('.noresults').hide();   //hide "no results"
 
+        quicksearchresults = [];
+
         if (!res.length) {
             //render no results found
             quicksearchDOM.find('.noresults').show();   //show "no results"
@@ -149,8 +152,8 @@
             //datatypeid
             //id
             //name
+            quicksearchresults[r.id] = r;
 
-            //resskin += "<div class='result' clickid='" + r.id + "'>" + r.name + "</div>";
             resskin += RenderObjectBlock(r);
         }
 
@@ -180,6 +183,10 @@
                 //TODO: canvas-unsupported code here - render png's
             }
         });
+
+
+        //BIND
+        quicksearchDOM.find('.object-item').unbind('click').click(OnObjectBlockClick);
     };
 
     var RenderObjectBlock = function (obj) {
@@ -211,6 +218,25 @@
         "</div>";
 
         return objskin;
+    };
+
+    var OnObjectBlockClick = function () {
+        var cid = $(this).attr('clickid');
+        if(!cid) {
+            ox.Log("Mainsearch.OnObjectBlockClick() - Object clicked without clickid.");
+            return;
+        }
+
+        var obj = quicksearchresults[cid];
+        if (!obj) {
+            ox.Log("Mainsearch.OnObjectBlockClick() - Object could not be found by clickid. Clickid: '" + cid + "'. ");
+            return;
+        }
+
+        if (quicksearchDOM.is(':visible')) {
+            quicksearchDOM.slideUp(100);
+        }
+        new ox.Event('navigate', 'item', obj);
     };
 
     Init();
