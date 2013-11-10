@@ -4,6 +4,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.IO;
+using System.Text;
+using System.Security.Cryptography;
+using System.Web.Security;
 
 namespace LittleCompany.DAL
 {
@@ -26,12 +29,16 @@ namespace LittleCompany.DAL
                 versions = new List<BO.File.Version>()
             };
 
+
+            string secretpassword = Membership.GeneratePassword(12, 5);
+
+
             // save in db (get back id and guid)
-            r = CreateNewFile_DB(r, customerid, customerpath, dateupload);
+            r = CreateNewFile_DB(r, customerid, customerpath, dateupload, secretpassword);
             if (r == null) { return null; }
 
             // save in filesystem (with path and guid)
-            if (!WriteFileToFileSystem(r.versions.FirstOrDefault().guid, customerpath, inputstream))
+            if (!WriteFileToFileSystem(r.versions.FirstOrDefault().guid, customerpath, inputstream, secretpassword, r.name))
             {
                 // there was an error saving the file.
                 // todo: delete from db
@@ -41,13 +48,12 @@ namespace LittleCompany.DAL
             }
 
 
-
             return r;
 
         }
 
 
-        private BO.File CreateNewFile_DB(BO.File file, int customerid, string path, DateTime dateupload)
+        private BO.File CreateNewFile_DB(BO.File file, int customerid, string path, DateTime dateupload, string secretpassword)
         {
 
 
@@ -66,7 +72,7 @@ namespace LittleCompany.DAL
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@customerid", Value = customerid });
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@path", Value = path });
                         cmd.Parameters.Add(new SqlParameter() { ParameterName = "@dateUpload", Value = dateupload });
-
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@password", Value = secretpassword });
 
                         connection.Open();
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -106,27 +112,33 @@ namespace LittleCompany.DAL
 
         }
 
-        public bool WriteFileToFileSystem(string fileguid, string customerpath, System.IO.Stream inputstream)
+        public bool WriteFileToFileSystem(string fileguid, string customerpath, System.IO.Stream inputstream, string secretpassword, string originalname)
         {
             string OndorUploadPath = new DAL.Settings().GetSetting("OndorFilePath").value;
-            string filepath = System.IO.Path.Combine(OndorUploadPath, customerpath).ToString();
+            string filedir= System.IO.Path.Combine(OndorUploadPath, customerpath).ToString();
 
             // create path if possible
-            if (!CreatePathIfMising(filepath)) { return false; }
+            if (!CreatePathIfMising(filedir)) { return false; }
 
             try
             {
 
-                filepath = System.IO.Path.Combine(filepath,fileguid + ".ondor");
+                var filepath = System.IO.Path.Combine(filedir, fileguid + ".ondor");
+                WriteFileEncryptedTo_FileSystem(inputstream, filepath, secretpassword);
 
-                using (var fileStream = File.Create(filepath))
-                {
-                    inputstream.CopyTo(fileStream);
-                }
+                var oldfilepath = System.IO.Path.Combine(filedir, "8af465d2-59ea-469f-a756-f58f14c24572.ondor");
+                var decryptedfile = System.IO.Path.Combine(filedir, originalname);
+                GetFileDecryptedFrom_FileSystem(oldfilepath, decryptedfile, "@bE!NH_ewz#?");
+
+
+                //using (var fileStream = File.Create(filepath))
+                //  {
+                //     inputstream.CopyTo(fileStream);
+                // }
             }
             catch (IOException e)
             {
-                new DAL.Logger().Log("DAL.Files", string.Format("(WriteFileToFileSystem) - The file could not be stored on path {0} with message {1}", filepath.ToString(), e.Message));
+                new DAL.Logger().Log("DAL.Files", string.Format("(WriteFileToFileSystem) - The file could not be stored on path {0} with message {1}", filedir.ToString(), e.Message));
                 return false;
 
             }
@@ -158,6 +170,71 @@ namespace LittleCompany.DAL
 
             return true;
 
+        }
+
+        private bool WriteFileEncryptedTo_FileSystem(System.IO.Stream inputStream, string outputFile, string password)
+        {
+
+            try
+            {
+                UnicodeEncoding UE = new UnicodeEncoding();
+                byte[] key = UE.GetBytes(password);
+
+                FileStream fsCrypt = new FileStream(outputFile, FileMode.Create);
+
+                RijndaelManaged RMCrypto = new RijndaelManaged();
+                CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateEncryptor(key, key), CryptoStreamMode.Write);
+
+                int data;
+                while ((data = inputStream.ReadByte()) != -1)
+                {
+                    cs.WriteByte((byte)data);
+                    inputStream.Close();
+                    cs.Close();
+                    fsCrypt.Close();
+                }
+            }
+            catch (Exception e)
+            {
+
+                return false;
+
+            }
+
+            return true;
+
+
+
+        }
+
+
+        private System.IO.Stream GetFileDecryptedFrom_FileSystem(string inputFile, string outputFile, string secretpassword)
+        {
+
+            UnicodeEncoding UE = new UnicodeEncoding();
+            byte[] key = UE.GetBytes(secretpassword);
+
+            FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
+
+            RijndaelManaged RMCrypto = new RijndaelManaged();
+
+            CryptoStream cs = new CryptoStream(fsCrypt,
+                RMCrypto.CreateDecryptor(key, key),
+                CryptoStreamMode.Read);
+
+            FileStream fsOut = new FileStream(outputFile, FileMode.Create);
+
+            int data;
+            while ((data = cs.ReadByte()) != -1)
+            {
+                fsOut.WriteByte((byte)data);
+            }
+
+            fsOut.Close();
+            cs.Close();
+            fsCrypt.Close();
+
+            return fsOut;
         }
 
 
