@@ -126,15 +126,15 @@ namespace LittleCompany.DAL
                 var filepath = System.IO.Path.Combine(filedir, fileguid + ".ondor");
                 WriteFileEncryptedTo_FileSystem(inputstream, filepath, secretpassword);
 
-                var oldfilepath = System.IO.Path.Combine(filedir, "8af465d2-59ea-469f-a756-f58f14c24572.ondor");
-                var decryptedfile = System.IO.Path.Combine(filedir, originalname);
-                GetFileDecryptedFrom_FileSystem(oldfilepath, decryptedfile, "@bE!NH_ewz#?");
+                //var oldfilepath = System.IO.Path.Combine(filedir, "8af465d2-59ea-469f-a756-f58f14c24572.ondor");
+                //var decryptedfile = System.IO.Path.Combine(filedir, originalname);
+                //GetFileDecryptedFrom_FileSystem(oldfilepath, decryptedfile, "@bE!NH_ewz#?");
 
 
-                //using (var fileStream = File.Create(filepath))
-                //  {
-                //     inputstream.CopyTo(fileStream);
-                // }
+                using (var fileStream = File.Create(filepath))
+                {
+                    inputstream.CopyTo(fileStream);
+                }
             }
             catch (IOException e)
             {
