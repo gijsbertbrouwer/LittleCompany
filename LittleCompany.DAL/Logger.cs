@@ -44,22 +44,25 @@ namespace LittleCompany.DAL
         {
 
 
-            string Message = DateTime.Now.ToString("yyyy-MM-dd") + "\t" + code.ToUpper() + "\t" + message;
+            string messageToStore = DateTime.Now.ToString("yyyy-MM-dd") + "\t" + code.ToUpper() + "\t" + message;
 
     
                 // log this error.
-                var logmessage = Message;
-                string StorageLocation = HttpContext.Current.Server.MapPath("~");
+                var logmessage = messageToStore;
+                string filepath = HttpContext.Current.Server.MapPath("~");
                
-                StorageLocation = System.IO.Path.Combine(StorageLocation, "Log");
-                new DAL.Files().CreatePathIfMising(StorageLocation);
-                StorageLocation = System.IO.Path.Combine(StorageLocation,string.Format(@"log_{0}.txt", DateTime.Now.Date.ToString("yyyyMMdd")));
+                filepath = System.IO.Path.Combine(filepath, "Log");
+               
+                // Create path if missing
+                new DAL.Files().CreatePathIfMising(filepath);
 
-                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(StorageLocation, true))
+                filepath = System.IO.Path.Combine(filepath,string.Format(@"log_{0}.txt", DateTime.Now.Date.ToString("yyyyMMdd")));
+
+                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filepath, true))
                 {
                     sw.WriteLine("--------------------------------ERROR REACHING DB, SAVING TO FILE INSTEAD--------------------------------------");
                     sw.WriteLine(errormessage);
-                    sw.WriteLine(Message);
+                    sw.WriteLine(messageToStore);
                    
                 }
             
