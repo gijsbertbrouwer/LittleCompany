@@ -9,6 +9,14 @@ namespace LittleCompany.DAL
     public class Customer
     {
 
+
+
+
+
+
+
+
+
         public int CreateNewCustomer(string custmername, string mainusername, string mainuserpassword)
         {
             // check if customername already exist (return if so)

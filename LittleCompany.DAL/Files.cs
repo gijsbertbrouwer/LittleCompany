@@ -150,7 +150,7 @@ namespace LittleCompany.DAL
 
         }
 
-        private bool CreatePathIfMising(string path)
+        public bool CreatePathIfMising(string path)
         {
 
             try

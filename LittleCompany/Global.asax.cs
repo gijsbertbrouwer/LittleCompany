@@ -13,6 +13,18 @@ namespace LittleCompany.GUI
         protected void Application_Start(object sender, EventArgs e)
         {
             LittleCompany.DAL.Connection.connectionstring = LittleCompany.GUI.Properties.Settings.Default.DBConnection;
+
+            // check if database is there
+            if (!LittleCompany.DAL.Connection.databaseIsAccesible())
+            {
+                new BL.LogLogic().Log("GUI.START", string.Format("(Application_Start) - The database with connectionstring {0} could not be reached. it might be down or the conectionstring is incorrect.", LittleCompany.DAL.Connection.connectionstring));
+              
+                
+                return;
+            }
+
+
+
             LittleCompany.BL.Cyptography.salt = LittleCompany.GUI.Properties.Settings.Default.Salt;
 
             // Load all captions to memory

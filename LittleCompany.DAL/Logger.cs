@@ -30,11 +30,41 @@ namespace LittleCompany.DAL
             }
             catch (Exception e)
             {
-                return ;
-                // todo: save error on local machine
+              
+                // save error on local machine
+                LogOnFileSystem(code, message, e.Message);
+                return;
             }
             return;
         }
+
+
+
+        private void LogOnFileSystem(string code, string message, string errormessage)
+        {
+
+
+            string Message = DateTime.Now.ToString("yyyy-MM-dd") + "\t" + code.ToUpper() + "\t" + message;
+
+    
+                // log this error.
+                var logmessage = Message;
+                string StorageLocation = HttpContext.Current.Server.MapPath("~");
+               
+                StorageLocation = System.IO.Path.Combine(StorageLocation, "Log");
+                new DAL.Files().CreatePathIfMising(StorageLocation);
+                StorageLocation = System.IO.Path.Combine(StorageLocation,string.Format(@"log_{0}.txt", DateTime.Now.Date.ToString("yyyyMMdd")));
+
+                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(StorageLocation, true))
+                {
+                    sw.WriteLine("--------------------------------ERROR REACHING DB, SAVING TO FILE INSTEAD--------------------------------------");
+                    sw.WriteLine(errormessage);
+                    sw.WriteLine(Message);
+                   
+                }
+            
+        }
+    
 
     }
 }
