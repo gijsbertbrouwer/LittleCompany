@@ -11,8 +11,14 @@ namespace LittleCompany.BL
         {
             // create organisation and return the id of it
             return new DAL.Organisation().CreateNewOrganisation(name, customerid);
-
         }
+
+        public BO.Organisation GetOrganisationById(int organisationid, int customerid)
+        {
+            // get the organisation
+            return new DAL.Organisation().GetOrganisation(organisationid, customerid);
+        }
+
 
 
     }

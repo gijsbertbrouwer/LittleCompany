@@ -156,7 +156,7 @@ namespace LittleCompany.GUI.helpers
             }
 
 
-            var file = new BL.Files().GetFile(fileid, auth.customerid);
+            var file = new BL.Files().GetFile_By_Id(fileid, auth.customerid);
             var v = file.versions.FirstOrDefault();
 
             string OndorUploadPath = new DAL.Settings().GetSetting("OndorFilePath").value;

@@ -183,11 +183,11 @@ namespace LittleCompany.DAL
             var f = dbfile.versions.FirstOrDefault();
 
             string OndorUploadPath = new DAL.Settings().GetSetting("OndorFilePath").value;
-            string filepath = System.IO.Path.Combine(OndorUploadPath, f.path, f.guid  + ".ondor").ToString();
+            string filepath = System.IO.Path.Combine(OndorUploadPath, f.path, f.guid + ".ondor").ToString();
 
-       
 
-           // f.filestream = GetFileFromFileSystem(filepath);
+
+            // f.filestream = GetFileFromFileSystem(filepath);
 
             return dbfile;
 
@@ -224,7 +224,7 @@ namespace LittleCompany.DAL
                                 //id, name, organisationid, personid, customerid, [path], dateupload, [version], [guid], [password]
 
                                 file.name = (string)dr["name"];
-                                if (dr["organisationid"]  != System.DBNull.Value  )
+                                if (dr["organisationid"] != System.DBNull.Value)
                                 {
                                     file.organisationid = (int)dr["organisationid"];
                                 }
@@ -238,7 +238,7 @@ namespace LittleCompany.DAL
                                 {
                                     id = (int)dr["id"],
                                     guid = ((System.Guid)dr["guid"]).ToString(),
-                                    version = (int) dr["version"],
+                                    version = (int)dr["version"],
                                     dateuploaded = (DateTime)dr["dateupload"],
                                     path = (string)dr["path"],
                                     password = (string)dr["password"]
@@ -259,13 +259,141 @@ namespace LittleCompany.DAL
             {
 
                 // do some errorlogic, this went terrible wrong
-                new DAL.Logger().Log("DAL.Files", string.Format("(GetFile_DB) - The file with fileid: {0}, customerid {1} could not be found.", fileid,customerid));
+                new DAL.Logger().Log("DAL.Files", string.Format("(GetFile_DB) - The file with fileid: {0}, customerid {1} could not be found.", fileid, customerid));
                 return null;
             }
 
 
 
         }
+
+        public List<BO.File> GetFile_By_OrganisationId(int organisationid, int customerid)
+        {
+
+            var r = new List<BO.File>();
+
+
+
+            try
+            {
+
+
+                using (SqlConnection connection = new SqlConnection(DAL.Connection.connectionstring))
+                {
+                    using (SqlCommand cmd = new SqlCommand("File_Get_ByOrganisationId") { CommandType = System.Data.CommandType.StoredProcedure, Connection = connection })
+                    {
+
+
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@organisationid", Value = organisationid });
+                        cmd.Parameters.Add(new SqlParameter() { ParameterName = "@customerid", Value = customerid });
+
+
+                        connection.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        if (dr.HasRows)
+                        {
+
+                            while (dr.Read())
+                            {
+                                //id, name, organisationid, personid, customerid, [path], dateupload, [version], [guid], [password]
+
+
+                                var file = new BO.File()
+                                {
+                                    versions = new List<BO.File.Version>()
+                                };
+
+                                file.name = (string)dr["name"];
+                                if (dr["organisationid"] != System.DBNull.Value)
+                                {
+                                    file.organisationid = (int)dr["organisationid"];
+                                }
+
+                                if (dr["personid"] != System.DBNull.Value)
+                                {
+                                    file.personid = (int)dr["personid"];
+                                }
+
+                                file.versions.Add(new BO.File.Version()
+                                {
+                                    id = (int)dr["id"],
+                                    guid = ((System.Guid)dr["guid"]).ToString(),
+                                    version = (int)dr["version"],
+                                    dateuploaded = (DateTime)dr["dateupload"],
+                                    path = (string)dr["path"],
+                                    password = (string)dr["password"]
+                                });
+
+                                r.Add(file);
+
+                            }
+                        }
+
+
+
+                    }
+                }
+
+                return r;
+
+            }
+            catch (Exception e)
+            {
+
+                // do some errorlogic, this went terrible wrong
+                new DAL.Logger().Log("DAL.Files", string.Format("(GetFile_DB) - The file with fileid: {0}, customerid {1} could not be found.", fileid, customerid));
+                return null;
+            }
+
+
+
+        }
+
+
+        //private List<BO.File> ReaderToFiles(SqlDataReader dr)
+        //{
+        //    var r = new List<BO.File>();
+
+        //    if (dr.HasRows)
+        //    {
+        //        while (dr.Read())
+        //        {
+
+        //            var file = new BO.File()
+        //                                 {
+        //                                     versions = new List<BO.File.Version>()
+        //                                 };
+
+        //            file.name = (string)dr["name"];
+        //            if (dr["organisationid"] != System.DBNull.Value)
+        //            {
+        //                file.organisationid = (int)dr["organisationid"];
+        //            }
+
+        //            if (dr["personid"] != System.DBNull.Value)
+        //            {
+        //                file.personid = (int)dr["personid"];
+        //            }
+
+        //            file.versions.Add(new BO.File.Version()
+        //            {
+        //                id = (int)dr["id"],
+        //                guid = ((System.Guid)dr["guid"]).ToString(),
+        //                version = (int)dr["version"],
+        //                dateuploaded = (DateTime)dr["dateupload"],
+        //                path = (string)dr["path"],
+        //                password = (string)dr["password"]
+        //            });
+
+
+
+        //            r.Add(file);
+
+        //        }
+        //    }
+        //    return r;
+        //}
+
 
         //private FileStream GetFileFromFileSystem(string pathSource)
         //{

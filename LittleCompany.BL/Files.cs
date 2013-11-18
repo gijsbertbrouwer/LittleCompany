@@ -18,5 +18,12 @@ namespace LittleCompany.BL
 
             return new DAL.Files().GetFile(fileid, customerid);
         }
+
+        public List<BO.File> GetFile_By_Id(int organisationid, int customerid)
+        {
+
+            return new DAL.Files().GetFile_By_OrganisationId(organisationid, customerid);
+        }
+
     }
 }

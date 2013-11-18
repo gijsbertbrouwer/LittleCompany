@@ -1,0 +1,4 @@
+--------------------------------ERROR REACHING DB, SAVING TO FILE INSTEAD--------------------------------------
+Cannot open database "ondor" requested by the login. The login failed.
+Login failed for user 'NWWI-LP09\g.brouwer'.
+2013-11-11	GUI.START	(Application_Start) - The database with connectionstring Data Source=(localdb)\v11.0;Initial Catalog=ondor;Integrated Security=True could not be reached. it might be down or the conectionstring is incorrect.

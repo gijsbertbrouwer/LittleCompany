@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -20,7 +21,8 @@ namespace LittleCompany.BO
             public int id { get; set; }
             public string path { get; set; }
             public string password { get; set; }
-          
         }
+
+
     }
 }

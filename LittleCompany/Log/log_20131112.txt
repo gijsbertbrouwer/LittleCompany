@@ -1,0 +1,20 @@
+--------------------------------ERROR REACHING DB, SAVING TO FILE INSTEAD--------------------------------------
+Cannot open database "ondor" requested by the login. The login failed.
+Login failed for user 'NWWI-LP09\g.brouwer'.
+2013-11-12	GUI.START	(Application_Start) - The database with connectionstring Data Source=(localdb)\v11.0;Initial Catalog=ondor;Integrated Security=True could not be reached. it might be down or the conectionstring is incorrect.
+--------------------------------ERROR REACHING DB, SAVING TO FILE INSTEAD--------------------------------------
+Cannot open database "ondor" requested by the login. The login failed.
+Login failed for user 'NWWI-LP09\g.brouwer'.
+2013-11-12	DAL.CUSTOMER	(Check_RegistrationPossible) - The Customer with username: H/UYKUyT5i99wLkNOgoERA==, customernameondor, could not be checked if it is a possible new name
+--------------------------------ERROR REACHING DB, SAVING TO FILE INSTEAD--------------------------------------
+Cannot open database "ondor" requested by the login. The login failed.
+Login failed for user 'NWWI-LP09\g.brouwer'.
+2013-11-12	DAL.CUSTOMER	(Check_RegistrationPossible) - The Customer with username: BaZxxmrv6hJMwIt26m0wuw==, customernameondor, could not be checked if it is a possible new name
+--------------------------------ERROR REACHING DB, SAVING TO FILE INSTEAD--------------------------------------
+Cannot open database "ondor" requested by the login. The login failed.
+Login failed for user 'NWWI-LP09\g.brouwer'.
+2013-11-12	DAL.CUSTOMER	(Check_RegistrationPossible) - The Customer with username: BaZxxmrv6hJMwIt26m0wuw==, customernametest, could not be checked if it is a possible new name
+--------------------------------ERROR REACHING DB, SAVING TO FILE INSTEAD--------------------------------------
+Cannot open database "ondor" requested by the login. The login failed.
+Login failed for user 'NWWI-LP09\g.brouwer'.
+2013-11-12	DAL.CUSTOMER	(Check_RegistrationPossible) - The Customer with username: BaZxxmrv6hJMwIt26m0wuw==, customernametest, could not be checked if it is a possible new name

@@ -18,7 +18,13 @@ namespace LittleCompany.DAL
         {
             try
             {
-                using (System.Data.SqlClient.SqlConnection conn = new SqlConnection(connectionstring))
+
+                SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(connectionstring);
+                csb.ConnectTimeout = 5;
+                string newConnectionString = csb.ToString();
+
+
+                using (System.Data.SqlClient.SqlConnection conn = new SqlConnection(newConnectionString))
                 {
                     conn.Open();
                     return conn.State == System.Data.ConnectionState.Open;
